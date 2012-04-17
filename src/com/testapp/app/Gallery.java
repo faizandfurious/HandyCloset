@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 public class Gallery extends Activity {
 	
@@ -52,8 +53,8 @@ public class Gallery extends Activity {
         
         for(Hashtable table : hashtable){
         	byte[] bytes = (byte[]) table.get("picture");
-        	int h = 48; // height in pixels
-        	int w = 48; // width in pixels    
+        	int h = 60; // height in pixels
+        	int w = 60; // width in pixels    
         	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
         	Drawable drw = new BitmapDrawable(scaled);
@@ -63,22 +64,26 @@ public class Gallery extends Activity {
    
    public void onResume() {
 	   super.onResume();
-//       hashtable = dm.selectHashtable();
-//       for(Hashtable table : hashtable){
-//       	byte[] bytes = (byte[]) table.get("picture");
-//       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-//       	Drawable drw = Drawable.createFromStream(is, "articleImage");
-//       	for(int i = 0; i < images.size(); i++)
-//       	{
-//       		if(images.get(i).equals(drw))
-//       		{
-//       				
-//       		}
-//       		else{
-//       			images.add(drw);
-//       		}
-//       	}
-//       }
+       hashtable = dm.selectHashtable();
+       for(Hashtable table : hashtable){
+       	byte[] bytes = (byte[]) table.get("picture");
+       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+    	int h = 60; // height in pixels
+    	int w = 60; // width in pixels    
+    	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+    	Drawable drw = new BitmapDrawable(scaled);
+       	for(int i = 0; i < images.size(); i++)
+       	{
+       		if(images.get(i).equals(drw))
+       		{
+       				
+       		}
+       		else{
+       			images.add(drw);
+       		}
+       	}
+       }
    }
    
    @Override
@@ -120,7 +125,8 @@ public class Gallery extends Activity {
                 return position;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-                ImageView imageView;
+           ImageView imageView;
+           if(!images.isEmpty()){
                 if (convertView == null) {
                    imageView = new ImageView(mContext);
                    imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
@@ -131,9 +137,12 @@ public class Gallery extends Activity {
                    imageView = (ImageView) convertView;
                 }
 
-                imageView.setImageDrawable(images.get(position));
-                
-                return imageView;
+                	imageView.setImageDrawable(images.get(position));
+            }
+           else{
+        	   imageView = null;
+           }
+            return imageView;
         	
         }
         private Context mContext;
