@@ -75,7 +75,6 @@ public class DataManipulator
     {
         List<Hashtable> list = new ArrayList<Hashtable>();
         Cursor cursor = db.query(TABLE_NAME, new String[] { "id","name","picture" }, null, null, null, null, "name asc"); 
-        int x=0;
         if (cursor.moveToFirst()) {
            do {
            	Hashtable values = new Hashtable();
