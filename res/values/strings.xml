@@ -5,7 +5,5 @@
     <string name="app_name">TestApp</string>
     <string name="shirt">This is a shirt</string>
     <string name="name">Name of the Clothing</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
     
 </resources>
