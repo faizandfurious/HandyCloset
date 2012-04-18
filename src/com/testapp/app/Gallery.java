@@ -28,8 +28,10 @@ public class Gallery extends Activity {
 	   
    DataManipulator dm;
    
+   List<Integer> ids = new ArrayList<Integer>();
    List<byte[]> list = new ArrayList<byte[]>();
    List<String> names = new ArrayList<String>();
+   int count;
    
    
 
@@ -45,46 +47,47 @@ public class Gallery extends Activity {
         g.setAdapter(new ImageAdapter(this));
         g.setOnItemClickListener(new OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-              Toast.makeText(Gallery.this, "" + position, Toast.LENGTH_SHORT).show();
+        	   int location = v.getId();
+        	   
+        	   Toast.makeText(Gallery.this, "" + position + ", " + location, Toast.LENGTH_SHORT).show();
            }
         });
 
         dm = new DataManipulator(this);
         listHashTable = dm.selectHashtable();
+        count = listHashTable.size();
         
         for(Hashtable row : listHashTable){
         	byte[] bytes = (byte[]) row.get("picture");
+        	//String name = (String) row.get("name");
+        	String temp_id = (String) row.get("id");
+        	int id = Integer.parseInt(temp_id);
         	int h = 60; // height in pixels
         	int w = 60; // width in pixels    
         	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
         	Drawable drw = new BitmapDrawable(scaled);
         	images.add(drw);
+        	ids.add(id);
+        	//names.add(name);
         }
    }
    
-   public void onStart() {
-	   super.onStart();
+   
+   public void onResume() {
+	   super.onResume();
        listHashTable = dm.selectHashtable();
-       for(Hashtable row : listHashTable){
-       	byte[] bytes = (byte[]) row.get("picture");
-       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-    	int h = 60; // height in pixels
-    	int w = 60; // width in pixels    
-    	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-    	Drawable drw = new BitmapDrawable(scaled);
-       	for(int i = 0; i < images.size(); i++)
-       	{
-       		if(images.get(i).equals(drw))
-       		{
-       				
-       		}
-       		else{
-       			images.add(drw);
-       		}
-       	}
+       for(Hashtable row : listHashTable.subList(count, listHashTable.size())){
+	       	byte[] bytes = (byte[]) row.get("picture");
+	       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+	    	int h = 60; // height in pixels
+	    	int w = 60; // width in pixels    
+	    	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+	    	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+	    	Drawable drw = new BitmapDrawable(scaled);
+	    	images.add(drw);
        }
+       count = listHashTable.size();
    }
    
    @Override
@@ -134,11 +137,13 @@ public class Gallery extends Activity {
                    imageView.setAdjustViewBounds(false);
                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                    imageView.setPadding(0, 0, 0, 0);
+                  // int location = ids.get(position);
+                   imageView.setId(10);
                 } else {
                    imageView = (ImageView) convertView;
                 }
 
-                	imageView.setImageDrawable(images.get(position));
+                imageView.setImageDrawable(images.get(position));
             }
            else{
         	   imageView = null;
@@ -148,4 +153,5 @@ public class Gallery extends Activity {
         }
         private Context mContext;
     }
+   
 }
