@@ -1,6 +1,7 @@
 package com.testapp.app;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -8,6 +9,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,7 +22,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
-public class Gallery extends Activity {
+
+public class Gallery extends Activity implements View.OnClickListener{
+	
+	ImageView imageView;
 	
 	
 	   
@@ -36,11 +42,16 @@ public class Gallery extends Activity {
    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
+        
         GridView g = (GridView) findViewById(R.id.myGrid);
         g.setAdapter(new ImageAdapter(this));
+        
+        imageView = (ImageView)findViewById(R.id.imageView1);
         g.setOnItemClickListener(new OnItemClickListener() {
-           public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-              Toast.makeText(Gallery.this, "" + position, Toast.LENGTH_SHORT).show();
+        	@Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+              Toast.makeText(getBaseContext(), "" + position, Toast.LENGTH_SHORT).show();
+              	imageView.setImageResource(mThumbIds[position]);
            }
         });
 
@@ -53,18 +64,33 @@ public class Gallery extends Activity {
         }
    }
    public class ImageAdapter extends BaseAdapter {
+	   
+	   private Context ctx;
+	   int imageBackground;
+	   
         public ImageAdapter(Context c) {
-                mContext = c;
+        	ctx = c;
+        	TypedArray ta = obtainStyledAttributes(R.styleable.Gallery);
+            imageBackground = ta.getResourceId(R.styleable.Gallery_android_galleryItemBackground, 1);
+            ta.recycle();
         }
+        
+        @Override
         public int getCount() {
                 return mThumbIds.length;
         }
+        
+        @Override
         public Object getItem(int position) {
                 return position;
         }
+        
+        @Override
         public long getItemId(int position) {
                 return position;
         }
+        
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
                 ImageView imageView;
                 if (convertView == null) {
@@ -83,13 +109,6 @@ public class Gallery extends Activity {
                 return imageView;
         }
         private Context mContext;
-        private Integer[] mThumbIds = {
-                R.drawable.buttondown, R.drawable.dress,
-                R.drawable.pants, R.drawable.shorts,
-                R.drawable.tshirt, R.drawable.sweatpants,
-                R.drawable.sweatshirt, R.drawable.jacket,
-                R.drawable.jeans, R.drawable.khakis,
-                R.drawable.sundress,
-        };
     }
+
 }
