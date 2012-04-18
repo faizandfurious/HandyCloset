@@ -29,10 +29,11 @@ public class Gallery extends Activity {
    DataManipulator dm;
    
    List<byte[]> list = new ArrayList<byte[]>();
+   List<String> names = new ArrayList<String>();
    
    
-   List<Hashtable> dataHashTable = new ArrayList<Hashtable>();
-   List<Hashtable> hashtable = null;
+
+   List<Hashtable> listHashTable = new ArrayList<Hashtable>();
    List<Drawable> images = new ArrayList<Drawable>();
    
 	   
@@ -49,10 +50,10 @@ public class Gallery extends Activity {
         });
 
         dm = new DataManipulator(this);
-        hashtable = dm.selectHashtable();
+        listHashTable = dm.selectHashtable();
         
-        for(Hashtable table : hashtable){
-        	byte[] bytes = (byte[]) table.get("picture");
+        for(Hashtable row : listHashTable){
+        	byte[] bytes = (byte[]) row.get("picture");
         	int h = 60; // height in pixels
         	int w = 60; // width in pixels    
         	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -62,11 +63,11 @@ public class Gallery extends Activity {
         }
    }
    
-   public void onResume() {
-	   super.onResume();
-       hashtable = dm.selectHashtable();
-       for(Hashtable table : hashtable){
-       	byte[] bytes = (byte[]) table.get("picture");
+   public void onStart() {
+	   super.onStart();
+       listHashTable = dm.selectHashtable();
+       for(Hashtable row : listHashTable){
+       	byte[] bytes = (byte[]) row.get("picture");
        	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
     	int h = 60; // height in pixels
     	int w = 60; // width in pixels    
