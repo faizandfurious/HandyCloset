@@ -42,8 +42,8 @@ public final class R {
         public static final int button1_label=0x7f070012;
         public static final int button2=0x7f07000b;
         public static final int button3=0x7f07000c;
-        public static final int delete=0x7f070018;
-        public static final int edit=0x7f070017;
+        public static final int delete=0x7f07001a;
+        public static final int edit=0x7f070019;
         public static final int editText1=0x7f070008;
         public static final int ibTakePic=0x7f07000e;
         public static final int imageView1=0x7f070000;
@@ -51,6 +51,8 @@ public final class R {
         public static final int linearLayout1=0x7f070003;
         public static final int myGrid=0x7f070009;
         public static final int name=0x7f070013;
+        public static final int relativeLayout1=0x7f070017;
+        public static final int relativeLayout2=0x7f070018;
         public static final int selection=0x7f070002;
         public static final int selection2=0x7f070001;
         public static final int text=0x7f070010;
@@ -70,6 +72,7 @@ public final class R {
         public static final int sampler=0x7f030007;
         public static final int save=0x7f030008;
         public static final int splash=0x7f030009;
+        public static final int view=0x7f03000a;
     }
     public static final class menu {
         public static final int view=0x7f060000;
@@ -83,4 +86,25 @@ public final class R {
         public static final int name=0x7f050003;
         public static final int shirt=0x7f050002;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a Gallery.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Gallery_android_galleryItemBackground com.testapp.app:android_galleryItemBackground}</code></td><td></td></tr>
+           </table>
+           @see #Gallery_android_galleryItemBackground
+         */
+        public static final int[] Gallery = {
+            0x0101004c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.testapp.app.R.attr#android_galleryItemBackground}
+          attribute's value can be found in the {@link #Gallery} array.
+          @attr name android:android_galleryItemBackground
+        */
+        public static final int Gallery_android_galleryItemBackground = 0;
+    };
 }

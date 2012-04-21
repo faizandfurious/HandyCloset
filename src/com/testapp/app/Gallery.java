@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 public class Gallery extends Activity {
 	
-	
+	TextView textView;
 	   
    DataManipulator dm;
    
@@ -48,8 +49,11 @@ public class Gallery extends Activity {
         g.setOnItemClickListener(new OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         	   int location = v.getId();
-        	   
-        	   Toast.makeText(Gallery.this, "" + position + ", " + location, Toast.LENGTH_SHORT).show();
+
+   				Intent launchView = new Intent(Gallery.this, ViewClothing.class);
+   			
+   				launchView.putExtra("id", location);
+   				startActivityForResult(launchView, 1);
            }
         });
 
@@ -79,13 +83,17 @@ public class Gallery extends Activity {
        listHashTable = dm.selectHashtable();
        for(Hashtable row : listHashTable.subList(count, listHashTable.size())){
 	       	byte[] bytes = (byte[]) row.get("picture");
+	       	//String name = (String) row.get("name");
+	       	String temp_id = (String) row.get("id");
+	       	int id = Integer.parseInt(temp_id);
 	       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
 	    	int h = 60; // height in pixels
 	    	int w = 60; // width in pixels    
 	    	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 	    	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
 	    	Drawable drw = new BitmapDrawable(scaled);
-	    	images.add(drw);
+        	images.add(drw);
+        	ids.add(id);
        }
        count = listHashTable.size();
    }
@@ -137,8 +145,9 @@ public class Gallery extends Activity {
                    imageView.setAdjustViewBounds(false);
                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                    imageView.setPadding(0, 0, 0, 0);
-                  // int location = ids.get(position);
-                   imageView.setId(10);
+                   //Set the imageViews ID to the images ID from the database
+                   int location = ids.get(position);
+                   imageView.setId(location);
                 } else {
                    imageView = (ImageView) convertView;
                 }
@@ -153,5 +162,14 @@ public class Gallery extends Activity {
         }
         private Context mContext;
     }
+   
+   @Override
+   protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+   	super.onActivityResult(requestCode, resultCode, data);
+   	if(resultCode==RESULT_OK && requestCode==1) {
+   		int id = data.getExtras().getInt("returnInt");
+   		textView.setText(id);
+   	}
+   }
    
 }

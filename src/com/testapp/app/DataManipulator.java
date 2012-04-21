@@ -12,7 +12,7 @@ import java.util.List;
 public class DataManipulator
 {
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     static final String TABLE_NAME = "newtable";
     private static Context context;
     static SQLiteDatabase db;
