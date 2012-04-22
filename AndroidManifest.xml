@@ -37,6 +37,7 @@
         <activity android:name=".SaveData"></activity>
 		<activity android:name=".CheckData"></activity>
 		<activity android:name=".ViewClothing"></activity>
+		<activity android:name=".EditClothing"></activity>
     </application>
     
     

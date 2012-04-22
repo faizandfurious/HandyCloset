@@ -1,4 +1,5 @@
 package com.testapp.app;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,9 @@ public class DataManipulator
     private static final  String DATABASE_NAME = "mydatabase.db";
     private static final int DATABASE_VERSION = 2;
     static final String TABLE_NAME = "newtable";
+    public static final String KEY_ID = "id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_PICTURE = "picture";
     private static Context context;
     static SQLiteDatabase db;
     private SQLiteStatement insertStmt;
@@ -92,10 +96,20 @@ public class DataManipulator
         return list;
     }
     
+    //---updates a title---
+    public boolean update(long rowId, String name) 
+    {
+        ContentValues args = new ContentValues();
+        args.put(KEY_NAME, name);
+        return db.update(TABLE_NAME, args, 
+                         KEY_ID + "=" + rowId, null) > 0;
+    }
+    
     
    public void delete(int rowId) {
-        db.delete(TABLE_NAME, null, null); 
+        db.delete(TABLE_NAME, KEY_ID + "=" + rowId, null); 
    }
+   
    private static class OpenHelper extends SQLiteOpenHelper {
         OpenHelper(Context context) {
              super(context, DATABASE_NAME, null, DATABASE_VERSION);

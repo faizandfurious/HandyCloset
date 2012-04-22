@@ -42,8 +42,8 @@ public final class R {
         public static final int button1_label=0x7f070012;
         public static final int button2=0x7f07000b;
         public static final int button3=0x7f07000c;
-        public static final int delete=0x7f07001a;
-        public static final int edit=0x7f070019;
+        public static final int delete=0x7f070019;
+        public static final int edit=0x7f070018;
         public static final int editText1=0x7f070008;
         public static final int ibTakePic=0x7f07000e;
         public static final int imageView1=0x7f070000;
@@ -52,7 +52,6 @@ public final class R {
         public static final int myGrid=0x7f070009;
         public static final int name=0x7f070013;
         public static final int relativeLayout1=0x7f070017;
-        public static final int relativeLayout2=0x7f070018;
         public static final int selection=0x7f070002;
         public static final int selection2=0x7f070001;
         public static final int text=0x7f070010;

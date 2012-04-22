@@ -81,19 +81,21 @@ public class Gallery extends Activity {
    public void onResume() {
 	   super.onResume();
        listHashTable = dm.selectHashtable();
-       for(Hashtable row : listHashTable.subList(count, listHashTable.size())){
+       images.clear();
+       ids.clear();
+       for(Hashtable row : listHashTable){
 	       	byte[] bytes = (byte[]) row.get("picture");
 	       	//String name = (String) row.get("name");
 	       	String temp_id = (String) row.get("id");
 	       	int id = Integer.parseInt(temp_id);
-	       	ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-	    	int h = 60; // height in pixels
-	    	int w = 60; // width in pixels    
-	    	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-	    	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-	    	Drawable drw = new BitmapDrawable(scaled);
-        	images.add(drw);
-        	ids.add(id);
+	       	int h = 60; // height in pixels
+	       	int w = 60; // width in pixels    
+	       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+	       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+	       	Drawable drw = new BitmapDrawable(scaled);
+	       	images.add(drw);
+	       	ids.add(id);
+	       	//names.add(name);
        }
        count = listHashTable.size();
    }

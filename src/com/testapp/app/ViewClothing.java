@@ -80,13 +80,23 @@ public class ViewClothing extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.edit: 
+			
+			Intent editI = new Intent(ViewClothing.this, EditClothing.class);
+			editI.putExtra("id", id);
+			startActivityForResult(editI, 1);
+			
 			Toast.makeText(this, "Edit menu", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.delete:
+			dm.delete(id);
 			Toast.makeText(this, "Delete menu", Toast.LENGTH_SHORT).show();
+			Intent launchView = new Intent(ViewClothing.this, TabMenu.class);
+			startActivityForResult(launchView, 1);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	
 }
