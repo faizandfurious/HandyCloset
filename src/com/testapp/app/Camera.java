@@ -1,8 +1,6 @@
 package com.testapp.app;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import android.app.Activity;
@@ -35,13 +33,15 @@ public class Camera extends Activity implements View.OnClickListener {
 		initialize();
 		InputStream is = getResources().openRawResource(R.drawable.ic_launcher);
 		bmp = BitmapFactory.decodeStream(is);
-        this.dm = new DataManipulator(this);
+
+		this.dm = new DataManipulator(this);
+
 	}
 	
 	private void initialize() {
 		iv = (ImageView) findViewById (R.id.ivReturnedPic);
 		ib = (ImageButton) findViewById (R.id.ibTakePic);
-		b = (Button) findViewById (R.id.bSetWall);
+		b = (Button) findViewById (R.id.bDone);
 		ib.setOnClickListener(this);
 		b.setOnClickListener(this);
 	}
@@ -50,13 +50,7 @@ public class Camera extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.bSetWall:
-//			try {
-//				getApplicationContext().setWallpaper(bmp);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		case R.id.bDone:
 			i = new Intent(this, AddTypeList.class);
 			startActivity(i);
 			break;
@@ -72,21 +66,17 @@ public class Camera extends Activity implements View.OnClickListener {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
-	        Uri imageUri = data.getData();
-	        try {
-				Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitMapData = stream.toByteArray();
-                this.dm.insert("",bitMapData);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
+
+			Bundle extras = data.getExtras();
+			bmp = (Bitmap) extras.get("data");
+			iv.setImageBitmap(bmp);
+
+			Bitmap bitmap = bmp;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitMapData = stream.toByteArray();
+            this.dm.insert("",bitMapData);
+		}
 	}
 
 }

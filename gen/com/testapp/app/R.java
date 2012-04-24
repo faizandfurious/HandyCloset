@@ -39,7 +39,7 @@ public final class R {
         public static final int LinearLayout01=0x7f08000d;
         public static final int LinearLayout02=0x7f080016;
         public static final int ListView01=0x7f08000f;
-        public static final int bSetWall=0x7f080012;
+        public static final int bDone=0x7f080012;
         public static final int button1=0x7f08000a;
         public static final int button1_label=0x7f080014;
         public static final int button2=0x7f08000b;

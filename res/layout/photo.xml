@@ -20,7 +20,7 @@
 
 
     <Button
-        android:id="@+id/bSetWall"
+        android:id="@+id/bDone"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
