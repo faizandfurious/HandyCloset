@@ -52,6 +52,28 @@ public class DataManipulator
         return this.insertStmt.executeInsert();
     }
     
+    public List<Hashtable> searchQuery(String search){
+        List<Hashtable> list = new ArrayList<Hashtable>();
+    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE name LIKE '%" + search + "%';";
+     	Cursor cursor = db.rawQuery(q, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+            	Hashtable values = new Hashtable();
+            	values.put("id", cursor.getString(0));
+            	values.put("name", cursor.getString(1));
+            	values.put("picture", cursor.getBlob(2));
+            	list.add(values);
+            } while (cursor.moveToNext());
+         }
+         if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+         } 
+         cursor.close();
+         
+         return list;
+    }
+    
     public void deleteAll() {
         db.delete(TABLE_NAME, null, null);
     }

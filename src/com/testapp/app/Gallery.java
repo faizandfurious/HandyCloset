@@ -31,6 +31,7 @@ public class Gallery extends Activity {
 	TextView textView;
 	EditText et;
 	ImageAdapter imageAdapter;
+	GridView g;
 	   
    DataManipulator dm;
    
@@ -49,14 +50,14 @@ public class Gallery extends Activity {
    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
-        GridView g = (GridView) findViewById(R.id.myGrid);
+        g = (GridView) findViewById(R.id.myGrid);
 		et = (EditText) findViewById(R.id.editText1);
         imageAdapter = new ImageAdapter(this);
         g.setAdapter(imageAdapter);
         g.setOnItemClickListener(new OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         	   int location = v.getId();
-
+        	   Toast.makeText(Gallery.this, "" + position + ", " + location, Toast.LENGTH_SHORT).show();
    				Intent launchView = new Intent(Gallery.this, ViewClothing.class);
    			
    				launchView.putExtra("id", location);
@@ -66,6 +67,30 @@ public class Gallery extends Activity {
 		et.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s)
 			{
+				listHashTable = dm.searchQuery(s.toString());
+				if(listHashTable.size() > 0){
+					names.clear();
+					images.clear();
+					ids.clear();
+					
+					for(Hashtable table : listHashTable){
+							byte[] bytes = (byte[]) table.get("picture");
+					       	String name = (String) table.get("name");
+					       	String temp_id = (String) table.get("id");
+					       	int id = Integer.parseInt(temp_id);
+					       	int h = 60; // height in pixels
+					       	int w = 60; // width in pixels    
+					       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+					       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+					       	Drawable drw = new BitmapDrawable(scaled);
+					       	images.add(drw);
+				        	ids.add(id);
+							names.add((String)table.get("name"));
+						}
+
+					imageAdapter.notifyDataSetChanged();
+					g.setAdapter(imageAdapter);
+					}
 			}
 			public void beforeTextChanged(CharSequence s,
 				int start, int count, int after)
@@ -75,29 +100,7 @@ public class Gallery extends Activity {
 			public void onTextChanged(CharSequence s,
 				int start, int before, int count)
 			{
-				names.clear();
-				images.clear();
-				listHashTable = dm.selectHashtable();
 
-				for(Hashtable table : listHashTable){
-					if (s.length() <= 0 && 
-							((String)table.get("name")).indexOf((String)s) != 0) {
-						byte[] bytes = (byte[]) table.get("picture");
-				       	//String name = (String) row.get("name");
-				       	String temp_id = (String) table.get("id");
-				       	int id = Integer.parseInt(temp_id);
-				       	int h = 60; // height in pixels
-				       	int w = 60; // width in pixels    
-				       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-				       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-				       	Drawable drw = new BitmapDrawable(scaled);
-				       	images.add(drw);
-			        	ids.add(id);
-						names.add((String)table.get("name"));
-					}
-				}
-				
-				imageAdapter.notifyDataSetChanged();
 			}
 		});
 
