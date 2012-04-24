@@ -23,45 +23,34 @@ import android.widget.TextView;
 public class SaveData extends Activity implements OnClickListener {  
     private DataManipulator dh;     
     static final int DIALOG_ID = 0;
+    
+    byte[] bitMapData;
+    
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save);
         View add = findViewById(R.id.Button01add);
         add.setOnClickListener(this);
         View home = findViewById(R.id.Button01home);
-        home.setOnClickListener(this);           
+        home.setOnClickListener(this);   
+        
+		Intent i = getIntent();
+		
+		Bundle extras = getIntent().getExtras();
+		bitMapData = extras.getByteArray("picture");
+
     }
     public void onClick(View v){
         switch(v.getId()){
             case R.id.Button01home:
-                Intent i = new Intent(this, DatabaseSample.class);
+                Intent i = new Intent(this, TabMenu.class);
                 startActivity(i);
             break;
             case R.id.Button01add:
                 View editText1 = (EditText) findViewById(R.id.name);
                 String myEditText1=((TextView) editText1).getText().toString();
 
-                Resources res = getResources();
-                Drawable drawable = res.getDrawable(R.drawable.shirt);
-                Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitMapData = stream.toByteArray();
-//                InputStream bs = getResources().openRawResource(R.drawable.dress);
-//			byte[] bytes = null;
-//			try {
-//				bytes = new byte[bs.available()];
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			try {
-//				bs.read(bytes);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//                String stringtostore = new String(bytes);
+
                 this.dh = new DataManipulator(this);
                 this.dh.insert(myEditText1,bitMapData);
                 showDialog(DIALOG_ID);

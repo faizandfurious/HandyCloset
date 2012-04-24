@@ -51,7 +51,7 @@ public class Camera extends Activity implements View.OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.bDone:
-			i = new Intent(this, AddTypeList.class);
+			i = new Intent(this, TabMenu.class);
 			startActivity(i);
 			break;
 		case R.id.ibTakePic:
@@ -75,7 +75,9 @@ public class Camera extends Activity implements View.OnClickListener {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitMapData = stream.toByteArray();
-            this.dm.insert("",bitMapData);
+            i = new Intent(this, SaveData.class);
+            i.putExtra("picture", bitMapData);
+            startActivity(i);
 		}
 	}
 
