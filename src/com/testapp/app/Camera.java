@@ -1,6 +1,6 @@
 package com.testapp.app;
 
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import android.app.Activity;
@@ -21,6 +21,7 @@ public class Camera extends Activity implements View.OnClickListener {
 	Intent i;
 	final static int cameraData = 0;
 	Bitmap bmp;
+	DataManipulator dm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class Camera extends Activity implements View.OnClickListener {
 		initialize();
 		InputStream is = getResources().openRawResource(R.drawable.ic_launcher);
 		bmp = BitmapFactory.decodeStream(is);
+		this.dm = new DataManipulator(this);
 	}
 	
 	private void initialize() {
@@ -63,6 +65,12 @@ public class Camera extends Activity implements View.OnClickListener {
 			Bundle extras = data.getExtras();
 			bmp = (Bitmap) extras.get("data");
 			iv.setImageBitmap(bmp);
+
+			Bitmap bitmap = bmp;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitMapData = stream.toByteArray();
+            this.dm.insert("",bitMapData);
 		}
 	}
 
