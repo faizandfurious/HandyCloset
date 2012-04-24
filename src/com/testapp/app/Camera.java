@@ -35,7 +35,7 @@ public class Camera extends Activity implements View.OnClickListener {
 	private void initialize() {
 		iv = (ImageView) findViewById (R.id.ivReturnedPic);
 		ib = (ImageButton) findViewById (R.id.ibTakePic);
-		b = (Button) findViewById (R.id.bSetWall);
+		b = (Button) findViewById (R.id.bDone);
 		ib.setOnClickListener(this);
 		b.setOnClickListener(this);
 	}
@@ -44,13 +44,7 @@ public class Camera extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.bSetWall:
-//			try {
-//				getApplicationContext().setWallpaper(bmp);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+		case R.id.bDone:
 			i = new Intent(this, AddTypeList.class);
 			startActivity(i);
 			break;
