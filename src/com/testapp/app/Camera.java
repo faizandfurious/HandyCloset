@@ -1,5 +1,7 @@
 package com.testapp.app;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -7,7 +9,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,6 +25,7 @@ public class Camera extends Activity implements View.OnClickListener {
 	Intent i;
 	final static int cameraData = 0;
 	Bitmap bmp;
+	DataManipulator dm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class Camera extends Activity implements View.OnClickListener {
 		initialize();
 		InputStream is = getResources().openRawResource(R.drawable.ic_launcher);
 		bmp = BitmapFactory.decodeStream(is);
+        this.dm = new DataManipulator(this);
 	}
 	
 	private void initialize() {
@@ -66,10 +72,21 @@ public class Camera extends Activity implements View.OnClickListener {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
-			Bundle extras = data.getExtras();
-			bmp = (Bitmap) extras.get("data");
-			iv.setImageBitmap(bmp);
-		}
+	        Uri imageUri = data.getData();
+	        try {
+				Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitMapData = stream.toByteArray();
+                this.dm.insert("",bitMapData);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	}
 
 }

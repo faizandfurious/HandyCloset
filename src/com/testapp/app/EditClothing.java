@@ -66,4 +66,11 @@ public class EditClothing extends Activity implements OnClickListener{
    				startActivityForResult(added, 1);
         }
     }
+    @Override
+    public void onBackPressed() {
+       System.out.println("onBackPressed Called");
+       Intent home = new Intent(this, ViewClothing.class);
+       home.putExtra("id", id);
+       startActivityForResult(home, 1);
+    }
 }

@@ -98,5 +98,11 @@ public class ViewClothing extends Activity {
 		}
 	}
 	
+    public void onBackPressed() {
+        System.out.println("onBackPressed Called");
+        Intent setIntent = new Intent(this, TabMenu.class);
+        startActivity(setIntent);
+     }
+	
 	
 }

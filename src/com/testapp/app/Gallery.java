@@ -14,11 +14,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import android.widget.Toast;
 public class Gallery extends Activity {
 	
 	TextView textView;
+	EditText et;
+	ImageAdapter imageAdapter;
 	   
    DataManipulator dm;
    
@@ -45,7 +50,9 @@ public class Gallery extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
         GridView g = (GridView) findViewById(R.id.myGrid);
-        g.setAdapter(new ImageAdapter(this));
+		et = (EditText) findViewById(R.id.editText1);
+        imageAdapter = new ImageAdapter(this);
+        g.setAdapter(imageAdapter);
         g.setOnItemClickListener(new OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         	   int location = v.getId();
@@ -56,6 +63,43 @@ public class Gallery extends Activity {
    				startActivityForResult(launchView, 1);
            }
         });
+		et.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s)
+			{
+			}
+			public void beforeTextChanged(CharSequence s,
+				int start, int count, int after)
+			{
+			}
+
+			public void onTextChanged(CharSequence s,
+				int start, int before, int count)
+			{
+				names.clear();
+				images.clear();
+				listHashTable = dm.selectHashtable();
+
+				for(Hashtable table : listHashTable){
+					if (s.length() <= 0 && 
+							((String)table.get("name")).indexOf((String)s) != 0) {
+						byte[] bytes = (byte[]) table.get("picture");
+				       	//String name = (String) row.get("name");
+				       	String temp_id = (String) table.get("id");
+				       	int id = Integer.parseInt(temp_id);
+				       	int h = 60; // height in pixels
+				       	int w = 60; // width in pixels    
+				       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+				       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+				       	Drawable drw = new BitmapDrawable(scaled);
+				       	images.add(drw);
+			        	ids.add(id);
+						names.add((String)table.get("name"));
+					}
+				}
+				
+				imageAdapter.notifyDataSetChanged();
+			}
+		});
 
         dm = new DataManipulator(this);
         listHashTable = dm.selectHashtable();
