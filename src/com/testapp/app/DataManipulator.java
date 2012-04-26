@@ -5,6 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -13,7 +18,7 @@ import java.util.List;
 public class DataManipulator
 {
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     static final String TABLE_NAME = "newtable";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
@@ -29,23 +34,7 @@ public class DataManipulator
         DataManipulator.db = openHelper.getWritableDatabase();
         this.insertStmt = DataManipulator.db.compileStatement(INSERT);
     }
-//    public long insert(String name,String number,String skypeId,byte[] bytes) {
-//        this.insertStmt.bindString(1, name);
-//        this.insertStmt.bindString(2, number);
-//        this.insertStmt.bindString(3, skypeId);
-//        this.insertStmt.bindBlob(4, bytes);
-//        return this.insertStmt.executeInsert();
-//    }
-//    
-//    
-//    public long insert(String name,String number,String skypeId,String address) {
-//        this.insertStmt.bindString(1, name);
-//        this.insertStmt.bindString(2, number);
-//        this.insertStmt.bindString(3, skypeId);
-//        this.insertStmt.bindString(4, address);
-//        return this.insertStmt.executeInsert();
-//    }
-//    
+
     public long insert(String name, byte[] picture) {
         this.insertStmt.bindString(1, name);
         this.insertStmt.bindBlob(2, picture);
@@ -72,6 +61,48 @@ public class DataManipulator
          cursor.close();
          
          return list;
+    }
+    
+    public Drawable getPicture(int id){
+    	byte[] bytes = null;
+    	
+    	String q = "SELECT " + KEY_PICTURE + " FROM " + TABLE_NAME + " WHERE " + KEY_ID + "'" + id +"';";
+    	
+    	Cursor cursor = db.rawQuery(q, null);
+    	
+    	if(cursor.moveToFirst()){
+    		bytes = cursor.getBlob(0);
+    	}
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        } 
+        cursor.close();
+        if(bytes != null){
+           	int h = 60; // height in pixels
+           	int w = 60; // width in pixels    
+            Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+           	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+           	Drawable picture = new BitmapDrawable(scaled);
+        	return picture;
+        }
+    
+        else{
+        	return null;
+        }
+    }
+    
+    public List<Integer> getIds(){
+    	
+    	List<Integer> ids = new ArrayList<Integer>();
+    	String q = "SELECT id FROM " + TABLE_NAME +";";
+    	Cursor cursor = db.rawQuery(q, null);
+    	if(cursor.moveToFirst()){
+    		do{
+    			ids.add(cursor.getInt(0));
+    		} while (cursor.moveToNext());
+    	}
+    	
+    	return ids;
     }
     
     public void deleteAll() {
@@ -118,7 +149,7 @@ public class DataManipulator
         return list;
     }
     
-    //---updates a title---
+    //---updates an article of clothing---
     public boolean update(long rowId, String name) 
     {
         ContentValues args = new ContentValues();

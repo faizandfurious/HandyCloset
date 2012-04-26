@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -64,6 +65,38 @@ public class Gallery extends Activity {
    				startActivityForResult(launchView, 1);
            }
         });
+
+        dm = new DataManipulator(this);
+        
+        
+ 	   List<Integer> newIds = dm.getIds();
+ 	   count = newIds.size();
+
+ 	   if(!images.isEmpty())
+ 	   {
+ 		   for(int i = 0; i < ids.size(); i++)
+ 		   {
+ 			   if(!newIds.contains(ids.get(i)))
+ 			   {
+ 				   images.remove(i);
+ 			   }
+ 		   }
+ 		   for(int i = 0; i < newIds.size(); i++)
+ 		   {
+ 			   if(!ids.contains(newIds.get(i)))
+ 			   {
+ 				   Drawable temp = dm.getPicture(i);
+ 				   if(temp != null){
+ 					   images.add(temp);
+ 					   ids.add(newIds.get(i));  
+ 				   }
+ 			   }
+ 		   }
+ 			imageAdapter.notifyDataSetChanged();
+ 			g.setAdapter(imageAdapter);
+ 	   }
+        
+        
 		et.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s)
 			{
@@ -103,48 +136,38 @@ public class Gallery extends Activity {
 
 			}
 		});
-
-        dm = new DataManipulator(this);
-        listHashTable = dm.selectHashtable();
-        count = listHashTable.size();
-        
-        for(Hashtable row : listHashTable){
-        	byte[] bytes = (byte[]) row.get("picture");
-        	//String name = (String) row.get("name");
-        	String temp_id = (String) row.get("id");
-        	int id = Integer.parseInt(temp_id);
-        	int h = 60; // height in pixels
-        	int w = 60; // width in pixels    
-        	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-        	Drawable drw = new BitmapDrawable(scaled);
-        	images.add(drw);
-        	ids.add(id);
-        	//names.add(name);
-        }
    }
    
    
    public void onResume() {
 	   super.onResume();
-       listHashTable = dm.selectHashtable();
-       images.clear();
-       ids.clear();
-       for(Hashtable row : listHashTable){
-	       	byte[] bytes = (byte[]) row.get("picture");
-	       	//String name = (String) row.get("name");
-	       	String temp_id = (String) row.get("id");
-	       	int id = Integer.parseInt(temp_id);
-	       	int h = 60; // height in pixels
-	       	int w = 60; // width in pixels    
-	       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-	       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-	       	Drawable drw = new BitmapDrawable(scaled);
-	       	images.add(drw);
-	       	ids.add(id);
-	       	//names.add(name);
-       }
-       count = listHashTable.size();
+	   List<Integer> newIds = dm.getIds();
+
+	   if(!images.isEmpty())
+	   {
+		   for(int i = 0; i < ids.size(); i++)
+		   {
+			   if(!newIds.contains(ids.get(i)))
+			   {
+				   images.remove(i);
+			   }
+		   }
+		   for(int i = 0; i < newIds.size(); i++)
+		   {
+			   if(!ids.contains(newIds.get(i)))
+			   {
+				   Drawable temp = dm.getPicture(i);
+				   if(temp != null){
+					   images.add(temp);
+					   ids.add(newIds.get(i));  
+				   }
+			   }
+		   }
+			imageAdapter.notifyDataSetChanged();
+			g.setAdapter(imageAdapter);
+		   
+	       count = listHashTable.size();
+	   }
    }
    
    @Override
