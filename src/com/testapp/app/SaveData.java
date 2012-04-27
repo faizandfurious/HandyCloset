@@ -62,13 +62,9 @@ public class SaveData extends Activity implements OnClickListener {
         switch(id) {
             case DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Information saved successfully ! Add Another Info?").setCancelable(false).setPositiveButton("No", new DialogInterface.OnClickListener() {
+                builder.setMessage("Information saved successfully!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                                 SaveData.this.finish();
-                        }
-                }).setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
                         }
                 });
                 AlertDialog alert = builder.create(); 
