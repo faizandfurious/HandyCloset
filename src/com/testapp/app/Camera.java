@@ -2,6 +2,7 @@ package com.testapp.app;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -73,10 +74,13 @@ public class Camera extends Activity implements View.OnClickListener {
 
 			Bitmap bitmap = bmp;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitMapData = stream.toByteArray();
+            dm.insert("", bitMapData);
+            List<Integer> ids = dm.getIds();
+            int last = ids.get(ids.size() - 1);
             i = new Intent(this, SaveData.class);
-            i.putExtra("picture", bitMapData);
+            i.putExtra("id", last);
             startActivity(i);
 		}
 	}
