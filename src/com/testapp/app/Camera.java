@@ -80,5 +80,10 @@ public class Camera extends Activity implements View.OnClickListener {
             startActivity(i);
 		}
 	}
+	
+    public void onBackPressed() {
+
+     }
+	
 
 }

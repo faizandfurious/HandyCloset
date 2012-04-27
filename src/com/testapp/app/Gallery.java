@@ -108,10 +108,15 @@ public class Gallery extends Activity {
 				        	ids.add(id);
 							names.add((String)table.get("name"));
 						}
-
-					imageAdapter.notifyDataSetChanged();
-					g.setAdapter(imageAdapter);
 					}
+				else{
+					names.clear();
+					images.clear();
+					ids.clear();
+				}
+
+				imageAdapter.notifyDataSetChanged();
+				g.setAdapter(imageAdapter);
 			}
 			public void beforeTextChanged(CharSequence s,
 				int start, int count, int after)
@@ -231,5 +236,12 @@ public class Gallery extends Activity {
    		textView.setText(id);
    	}
    }
+   
+   public void onBackPressed() {
+
+    }
+	
+   
+   
    
 }

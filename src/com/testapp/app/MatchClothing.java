@@ -9,6 +9,7 @@ import com.testapp.app.Gallery.ImageAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -154,4 +155,9 @@ public class MatchClothing extends Activity
 //        }
 //        private Context mContext;
 //    }
+	
+    public void onBackPressed() {
+
+     }
+	
 }

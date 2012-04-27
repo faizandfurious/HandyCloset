@@ -18,4 +18,6 @@ public class TabMenu extends TabActivity {
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Match", res.getDrawable(R.drawable.ic_tabs_match)).setContent(new Intent(this, MatchClothing.class)));
         tabHost.setCurrentTab(0); 
     }
+	
+	
 }
