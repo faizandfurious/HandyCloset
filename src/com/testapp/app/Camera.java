@@ -73,7 +73,7 @@ public class Camera extends Activity implements View.OnClickListener {
 
 			Bitmap bitmap = bmp;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitMapData = stream.toByteArray();
             i = new Intent(this, SaveData.class);
             i.putExtra("picture", bitMapData);
