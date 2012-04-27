@@ -24,7 +24,7 @@ public class SaveData extends Activity implements OnClickListener {
     private DataManipulator dh;     
     static final int DIALOG_ID = 0;
     
-    byte[] bitMapData;
+    int id;
     
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class SaveData extends Activity implements OnClickListener {
 		Intent i = getIntent();
 		
 		Bundle extras = getIntent().getExtras();
-		bitMapData = extras.getByteArray("picture");
+		id = extras.getInt("id");
 
     }
     public void onClick(View v){
@@ -52,7 +52,7 @@ public class SaveData extends Activity implements OnClickListener {
 
 
                 this.dh = new DataManipulator(this);
-                this.dh.insert(myEditText1,bitMapData);
+                this.dh.update(id, myEditText1);
                 showDialog(DIALOG_ID);
             break;
         }
@@ -66,6 +66,7 @@ public class SaveData extends Activity implements OnClickListener {
                         public void onClick(DialogInterface dialog, int id) {
                                 SaveData.this.finish();
                         }
+
                 });
                 AlertDialog alert = builder.create(); 
                 dialog = alert;
