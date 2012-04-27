@@ -18,7 +18,7 @@ import java.util.List;
 public class DataManipulator
 {
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 2;
     static final String TABLE_NAME = "newtable";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
