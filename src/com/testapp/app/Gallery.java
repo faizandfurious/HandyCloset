@@ -17,7 +17,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -84,7 +86,18 @@ public class Gallery extends Activity {
         	//names.add(name);
         }
         
-        
+        et.setOnKeyListener(new OnKeyListener() {
+        	   public boolean onKey(View v, int keyCode, KeyEvent event) {
+        	       // If the event is a key-down event on the "enter" button
+        	       if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+        	           (keyCode == KeyEvent.KEYCODE_ENTER)) {
+        	         // Perform action on key press
+
+        	         return true;
+        	       }
+        	       return false;
+        	   }
+        	});
 		et.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s)
 			{
@@ -183,7 +196,7 @@ public class Gallery extends Activity {
            ((ViewGroup) view).removeAllViews();
     	   }
     	   catch (UnsupportedOperationException mayHappen) {
-    	   // AdapterViews, ListViews and potentially other ViewGroups don’t support the removeAllViews operation
+    	   // AdapterViews, ListViews and potentially other ViewGroups don't support the removeAllViews operation
     	   }
        }
    }
