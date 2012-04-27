@@ -25,6 +25,7 @@ public class SaveData extends Activity implements OnClickListener {
     static final int DIALOG_ID = 0;
     
     int id;
+    Intent i = new Intent(this, TabMenu.class);
     
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class SaveData extends Activity implements OnClickListener {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Information saved successfully!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                                SaveData.this.finish();
+                        	startActivity(i); 
                         }
 
                 });
