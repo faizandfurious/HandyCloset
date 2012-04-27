@@ -18,7 +18,7 @@ import java.util.List;
 public class DataManipulator
 {
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     static final String TABLE_NAME = "newtable";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
@@ -66,7 +66,7 @@ public class DataManipulator
     public Drawable getPicture(int id){
     	byte[] bytes = null;
     	
-    	String q = "SELECT " + KEY_PICTURE + " FROM " + TABLE_NAME + " WHERE " + KEY_ID + "'" + id +"';";
+    	String q = "SELECT " + KEY_PICTURE + " FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + id +"';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	
