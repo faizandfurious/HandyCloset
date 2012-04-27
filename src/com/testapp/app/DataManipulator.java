@@ -66,7 +66,7 @@ public class DataManipulator
     public Drawable getPicture(int id){
     	byte[] bytes = null;
     	
-    	String q = "SELECT " + KEY_PICTURE + " FROM " + TABLE_NAME + " WHERE " + KEY_ID + "'" + id +"';";
+    	String q = "SELECT " + KEY_PICTURE + " FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + id +"';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	

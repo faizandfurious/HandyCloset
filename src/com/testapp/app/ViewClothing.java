@@ -6,12 +6,15 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,9 +23,12 @@ import android.graphics.drawable.Drawable;
 
 public class ViewClothing extends Activity {
 	
-	int id;
+	int location;
 	DataManipulator dm;
 	Hashtable ht;
+	static final int DIALOG_ID = 0;
+	
+	
 	List<Hashtable> listHashTable = new ArrayList<Hashtable>();	
 	   List<Integer> ids = new ArrayList<Integer>();
 	   List<byte[]> list = new ArrayList<byte[]>();
@@ -38,8 +44,8 @@ public class ViewClothing extends Activity {
 		//Get the intent that started the activity
 		Intent i = getIntent();
 		
-		id = i.getIntExtra("id", -1);
-		String intent_id = Integer.toString(id);
+		location = i.getIntExtra("id", -1);
+		String intent_id = Integer.toString(location);
 		
 		
         dm = new DataManipulator(this);
@@ -82,21 +88,43 @@ public class ViewClothing extends Activity {
 		case R.id.edit: 
 			
 			Intent editI = new Intent(ViewClothing.this, EditClothing.class);
-			editI.putExtra("id", id);
+			editI.putExtra("id", location);
 			startActivityForResult(editI, 1);
 			
 			Toast.makeText(this, "Edit menu", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.delete:
-			dm.delete(id);
-			Toast.makeText(this, "Delete menu", Toast.LENGTH_SHORT).show();
-			Intent launchView = new Intent(ViewClothing.this, TabMenu.class);
-			startActivityForResult(launchView, 1);
+			showDialog(DIALOG_ID);
 			return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	protected final Dialog onCreateDialog(final int id) {
+        Dialog dialog = null;
+        switch(id) {
+            case DIALOG_ID:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to delete?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        	dm.delete(location);
+                			Intent launchView = new Intent(ViewClothing.this, TabMenu.class);
+                			startActivityForResult(launchView, 1);
+                        }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                        }
+                });
+                AlertDialog alert = builder.create(); 
+                dialog = alert;
+                break;
+             default:
+        }
+        return dialog;
+    }
 	
     public void onBackPressed() {
         System.out.println("onBackPressed Called");
