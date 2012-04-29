@@ -8,12 +8,11 @@
     
     <application
         android:icon="@drawable/launcher_icon"
-        android:label="@string/app_name" 
-        android:screenOrientation="portrait" >
+        android:label="@string/app_name" >
         <activity
             android:name=".Splash"
             android:label="@string/app_name" 
-            android:configChanges="orientation|keyboardHidden|keyboard" >
+            android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,7 +21,8 @@
         <activity
             android:name=".TabMenu"
             android:label="@string/app_name"  
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="com.testapp.app.TABMENU" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -31,16 +31,16 @@
         <activity
             android:name=".Camera"
             android:label="Camera Application" 
-            android:configChanges="orientation" >
+            android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden" >
         </activity>
         
-        <activity android:name=".Gallery"></activity>
-        <activity android:name=".AddTypeList"></activity>
-        <activity android:name=".MatchClothing"></activity>
-        <activity android:name=".SaveData"></activity>
-		<activity android:name=".CheckData"></activity>
-		<activity android:name=".ViewClothing"></activity>
-		<activity android:name=".EditClothing"></activity>
+        <activity android:name=".Gallery" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".AddTypeList" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".MatchClothing" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".SaveData" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+		<activity android:name=".CheckData" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+		<activity android:name=".ViewClothing" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+		<activity android:name=".EditClothing" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
     </application>
     
     
