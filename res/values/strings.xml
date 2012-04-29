@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, TabMenu!</string>
-    <string name="app_name">The Closet</string>
+    <string name="app_name">HandyCloset</string>
     <string name="shirt">This is a shirt</string>
     <string name="name">Name of the Clothing</string>
     
