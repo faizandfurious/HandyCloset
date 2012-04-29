@@ -48,17 +48,20 @@ public class MatchClothing extends Activity
 //
 //	int textlength=0;
 //
+//	DataManipulator dm;
+//	List<Hashtable> listHashTable = new ArrayList<Hashtable>();
+//	List<Drawable> images = new ArrayList<Drawable>();
 	Integer[] pics = {
-    		R.drawable.antartica1,
-    		R.drawable.antartica2,
-    		R.drawable.antartica3,
-    		R.drawable.antartica4,
-    		R.drawable.antartica5,
-    		R.drawable.antartica6,
-    		R.drawable.antartica7,
-    		R.drawable.antartica8,
-    		R.drawable.antartica9,
-    		R.drawable.antartica10
+    		R.drawable.clothes1,
+    		R.drawable.clothes2,
+    		R.drawable.clothes3,
+    		R.drawable.clothes4,
+    		R.drawable.clothes5,
+    		R.drawable.clothes6,
+    		R.drawable.clothes7,
+    		R.drawable.clothes8,
+    		R.drawable.clothes9,
+    		R.drawable.clothes10
     };
     //ImageView imageView;
 	

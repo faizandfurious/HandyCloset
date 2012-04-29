@@ -12,18 +12,18 @@ public final class R {
     }
     public static final class drawable {
         public static final int add_how=0x7f020000;
-        public static final int antartica1=0x7f020001;
-        public static final int antartica10=0x7f020002;
-        public static final int antartica2=0x7f020003;
-        public static final int antartica3=0x7f020004;
-        public static final int antartica4=0x7f020005;
-        public static final int antartica5=0x7f020006;
-        public static final int antartica6=0x7f020007;
-        public static final int antartica7=0x7f020008;
-        public static final int antartica8=0x7f020009;
-        public static final int antartica9=0x7f02000a;
-        public static final int buttondown=0x7f02000b;
-        public static final int camera_icon=0x7f02000c;
+        public static final int buttondown=0x7f020001;
+        public static final int camera_icon=0x7f020002;
+        public static final int clothes1=0x7f020003;
+        public static final int clothes10=0x7f020004;
+        public static final int clothes2=0x7f020005;
+        public static final int clothes3=0x7f020006;
+        public static final int clothes4=0x7f020007;
+        public static final int clothes5=0x7f020008;
+        public static final int clothes6=0x7f020009;
+        public static final int clothes7=0x7f02000a;
+        public static final int clothes8=0x7f02000b;
+        public static final int clothes9=0x7f02000c;
         public static final int dress=0x7f02000d;
         public static final int ic_launcher=0x7f02000e;
         public static final int ic_tabs_add=0x7f02000f;
