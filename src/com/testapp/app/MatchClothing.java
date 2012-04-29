@@ -25,6 +25,11 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.res.TypedArray;
+import android.widget.AdapterView;
+import android.widget.Gallery;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MatchClothing extends Activity
 {
@@ -43,13 +48,77 @@ public class MatchClothing extends Activity
 //
 //	int textlength=0;
 //
+//	DataManipulator dm;
+//	List<Hashtable> listHashTable = new ArrayList<Hashtable>();
+//	List<Drawable> images = new ArrayList<Drawable>();
+	Integer[] pics = {
+    		R.drawable.clothes1,
+    		R.drawable.clothes2,
+    		R.drawable.clothes3,
+    		R.drawable.clothes4,
+    		R.drawable.clothes5,
+    		R.drawable.clothes6,
+    		R.drawable.clothes7,
+    		R.drawable.clothes8,
+    		R.drawable.clothes9,
+    		R.drawable.clothes10
+    };
+    //ImageView imageView;
+	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.match);
-		et = (TextView) findViewById(R.id.TextView01);
-		et.setText("Coming soon!");
+		//et = (TextView) findViewById(R.id.TextView01);
+		//et.setText("Coming soon!");
+		Gallery ga = (Gallery)findViewById(R.id.Gallery01);
+        ga.setAdapter(new ImageAdapter(this));
+        
+        Gallery gal = (Gallery)findViewById(R.id.Gallery02);
+        gal.setAdapter(new ImageAdapter(this));
 	}
+	
+    public class ImageAdapter extends BaseAdapter {
+
+    	private Context ctx;
+    	int imageBackground;
+    	
+    	public ImageAdapter(Context c) {
+			ctx = c;
+			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
+			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
+			ta.recycle();
+		}
+
+		@Override
+    	public int getCount() {
+    		
+    		return pics.length;
+    	}
+
+    	@Override
+    	public Object getItem(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+    	public long getItemId(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+    	public View getView(int arg0, View arg1, ViewGroup arg2) {
+    		ImageView iv = new ImageView(ctx);
+    		iv.setImageResource(pics[arg0]);
+    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
+    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
+    		iv.setBackgroundResource(imageBackground);
+    		return iv;
+    	}
+
+    }
 	
 
 //		dm = new DataManipulator(this);

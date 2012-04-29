@@ -12,50 +12,71 @@ public final class R {
     }
     public static final class drawable {
         public static final int add_how=0x7f020000;
-        public static final int buttondown=0x7f020001;
-        public static final int camera_icon=0x7f020002;
-        public static final int dress=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int ic_tabs_add=0x7f020005;
-        public static final int ic_tabs_closet=0x7f020006;
-        public static final int ic_tabs_match=0x7f020007;
-        public static final int jacket=0x7f020008;
-        public static final int jeans=0x7f020009;
-        public static final int khakis=0x7f02000a;
-        public static final int launcher_icon=0x7f02000b;
-        public static final int pants=0x7f02000c;
-        public static final int shirt=0x7f02000d;
-        public static final int shorts=0x7f02000e;
-        public static final int splash_background=0x7f02000f;
-        public static final int sundress=0x7f020010;
-        public static final int sweatpants=0x7f020011;
-        public static final int sweatshirt=0x7f020012;
-        public static final int tshirt=0x7f020013;
+        public static final int antartica1=0x7f020001;
+        public static final int antartica10=0x7f020002;
+        public static final int antartica2=0x7f020003;
+        public static final int antartica3=0x7f020004;
+        public static final int antartica4=0x7f020005;
+        public static final int antartica5=0x7f020006;
+        public static final int antartica6=0x7f020007;
+        public static final int antartica7=0x7f020008;
+        public static final int antartica8=0x7f020009;
+        public static final int antartica9=0x7f02000a;
+        public static final int buttondown=0x7f02000b;
+        public static final int camera_icon=0x7f02000c;
+        public static final int clothes1=0x7f02000d;
+        public static final int clothes10=0x7f02000e;
+        public static final int clothes2=0x7f02000f;
+        public static final int clothes3=0x7f020010;
+        public static final int clothes4=0x7f020011;
+        public static final int clothes5=0x7f020012;
+        public static final int clothes6=0x7f020013;
+        public static final int clothes7=0x7f020014;
+        public static final int clothes8=0x7f020015;
+        public static final int clothes9=0x7f020016;
+        public static final int dress=0x7f020017;
+        public static final int ic_launcher=0x7f020018;
+        public static final int ic_tabs_add=0x7f020019;
+        public static final int ic_tabs_closet=0x7f02001a;
+        public static final int ic_tabs_match=0x7f02001b;
+        public static final int jacket=0x7f02001c;
+        public static final int jeans=0x7f02001d;
+        public static final int khakis=0x7f02001e;
+        public static final int launcher_icon=0x7f02001f;
+        public static final int pants=0x7f020020;
+        public static final int shirt=0x7f020021;
+        public static final int shorts=0x7f020022;
+        public static final int splash_background=0x7f020023;
+        public static final int sundress=0x7f020024;
+        public static final int sweatpants=0x7f020025;
+        public static final int sweatshirt=0x7f020026;
+        public static final int tshirt=0x7f020027;
     }
     public static final class id {
-        public static final int Button01add=0x7f080016;
-        public static final int Button01home=0x7f080017;
+        public static final int Button01add=0x7f080017;
+        public static final int Button01home=0x7f080018;
+        public static final int Gallery01=0x7f08000e;
+        public static final int Gallery02=0x7f08000f;
         public static final int LinearLayout01=0x7f08000d;
-        public static final int LinearLayout02=0x7f080015;
-        public static final int TextView01=0x7f08000e;
-        public static final int bDone=0x7f080011;
+        public static final int LinearLayout02=0x7f080016;
+        public static final int bDone=0x7f080012;
         public static final int button1=0x7f08000a;
-        public static final int button1_label=0x7f080013;
+        public static final int button1_label=0x7f080014;
         public static final int button2=0x7f08000b;
         public static final int button3=0x7f08000c;
-        public static final int delete=0x7f08001a;
-        public static final int edit=0x7f080019;
+        public static final int delete=0x7f08001b;
+        public static final int edit=0x7f08001a;
         public static final int editText1=0x7f080008;
-        public static final int ibTakePic=0x7f080010;
+        public static final int ibTakePic=0x7f080011;
         public static final int imageView1=0x7f080000;
-        public static final int ivReturnedPic=0x7f08000f;
+        public static final int ivReturnedPic=0x7f080010;
         public static final int linearLayout1=0x7f080003;
         public static final int myGrid=0x7f080009;
-        public static final int name=0x7f080014;
-        public static final int relativeLayout1=0x7f080018;
+        public static final int name=0x7f080015;
+        public static final int relativeLayout1=0x7f080019;
         public static final int selection=0x7f080002;
         public static final int selection2=0x7f080001;
-        public static final int text=0x7f080012;
+        public static final int text=0x7f080013;
         public static final int textView1=0x7f080004;
         public static final int textView2=0x7f080005;
         public static final int textView3=0x7f080006;
@@ -110,5 +131,24 @@ public final class R {
           @attr name android:android_galleryItemBackground
         */
         public static final int Gallery_android_galleryItemBackground = 0;
+        /** Attributes that can be used with a Gallery1.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Gallery1_android_galleryItemBackground com.testapp.app:android_galleryItemBackground}</code></td><td></td></tr>
+           </table>
+           @see #Gallery1_android_galleryItemBackground
+         */
+        public static final int[] Gallery1 = {
+            0x0101004c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.testapp.app.R.attr#android_galleryItemBackground}
+          attribute's value can be found in the {@link #Gallery1} array.
+          @attr name android:android_galleryItemBackground
+        */
+        public static final int Gallery1_android_galleryItemBackground = 0;
     };
 }
