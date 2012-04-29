@@ -47,8 +47,8 @@ public class MatchClothing extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.match);
-		et = (TextView) findViewById(R.id.TextView01);
-		et.setText("Coming soon!");
+		//et = (TextView) findViewById(R.id.TextView01);
+		//et.setText("Coming soon!");
 	}
 	
 
