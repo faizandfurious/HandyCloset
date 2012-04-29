@@ -28,6 +28,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <RatingBar
+            android:id="@+id/ratingbar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5" />
+
         <TextView
             android:id="@+id/textView1"
             style="@style/CodeFont"
@@ -42,13 +48,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-<!--         <TextView
-            android:id="@+id/textView3"
-            style="@style/CodeFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rating"
-            android:textAppearance="?android:attr/textAppearanceLarge" /> -->
     </LinearLayout>
 
 <!--     <RelativeLayout

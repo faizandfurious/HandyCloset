@@ -18,16 +18,18 @@ import java.util.List;
 public class DataManipulator
 {
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 2;
     static final String TABLE_NAME = "newtable";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_PICTURE = "picture";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_RATING = "rating";
     private static Context context;
     static SQLiteDatabase db;
     private SQLiteStatement insertStmt;
         
-    private static final String INSERT = "insert into " + TABLE_NAME + " (name,picture) values (?,?)";
+    private static final String INSERT = "insert into " + TABLE_NAME + " (name,picture,description,rating) values (?,?,?,?)";
     public DataManipulator(Context context) {
         DataManipulator.context = context;
         OpenHelper openHelper = new OpenHelper(DataManipulator.context);
@@ -35,9 +37,11 @@ public class DataManipulator
         this.insertStmt = DataManipulator.db.compileStatement(INSERT);
     }
 
-    public long insert(String name, byte[] picture) {
+    public long insert(String name, byte[] picture, String description, int rating) {
         this.insertStmt.bindString(1, name);
         this.insertStmt.bindBlob(2, picture);
+        this.insertStmt.bindString(3, description);
+        this.insertStmt.bindDouble(4, rating);
         return this.insertStmt.executeInsert();
     }
     
@@ -52,6 +56,8 @@ public class DataManipulator
             	values.put("id", cursor.getString(0));
             	values.put("name", cursor.getString(1));
             	values.put("picture", cursor.getBlob(2));
+            	values.put("description", cursor.getString(3));
+            	values.put("rating", cursor.getInt(4));
             	list.add(values);
             } while (cursor.moveToNext());
          }
@@ -131,13 +137,15 @@ public class DataManipulator
     public List<Hashtable> selectHashtable()
     {
         List<Hashtable> list = new ArrayList<Hashtable>();
-        Cursor cursor = db.query(TABLE_NAME, new String[] { "id","name","picture" }, null, null, null, null, "name asc"); 
+        Cursor cursor = db.query(TABLE_NAME, new String[] { "id","name","picture", "description", "rating" }, null, null, null, null, "name asc"); 
         if (cursor.moveToFirst()) {
            do {
            	Hashtable values = new Hashtable();
            	values.put("id", cursor.getString(0));
            	values.put("name", cursor.getString(1));
            	values.put("picture", cursor.getBlob(2));
+           	values.put("description", cursor.getString(3));
+           	values.put("rating", cursor.getInt(4));
            	list.add(values);
            } while (cursor.moveToNext());
         }
@@ -150,10 +158,12 @@ public class DataManipulator
     }
     
     //---updates an article of clothing---
-    public boolean update(long rowId, String name) 
+    public boolean update(long rowId, String name, String description, int rating) 
     {
         ContentValues args = new ContentValues();
         args.put(KEY_NAME, name);
+        args.put(KEY_DESCRIPTION, description);
+        args.put(KEY_RATING, rating);
         return db.update(TABLE_NAME, args, 
                          KEY_ID + "=" + rowId, null) > 0;
     }
@@ -169,7 +179,7 @@ public class DataManipulator
         }
         @Override
         public void onCreate(SQLiteDatabase db) {
-             db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, name TEXT, picture BLOB)");
+             db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, name TEXT, picture BLOB, description TEXT, rating INTEGER)");
         }
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 

@@ -7,4 +7,11 @@
         <item name="android:typeface">monospace</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
+    
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/shirt</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:maxHeight">48dip</item>
+    </style>
 </resources>
+

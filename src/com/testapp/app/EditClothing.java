@@ -15,21 +15,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.RatingBar;
 import android.view.View.OnClickListener;
 
 
-public class EditClothing extends Activity implements OnClickListener{
+public class EditClothing extends Activity implements OnClickListener, RatingBar.OnRatingBarChangeListener{
 	
 	
 	int id;
 	DataManipulator dm;
-
+    RatingBar mIndicatorRatingBar;
+    int newNumStars = 0;
+    List<Hashtable> listHashTable;
+    Hashtable ht;
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.edit);
-		
 		//reading information passed to this activity
 		//Get the intent that started the activity
 		Intent i = getIntent();
@@ -39,13 +41,26 @@ public class EditClothing extends Activity implements OnClickListener{
 		
 		
         dm = new DataManipulator(this);
+
+        listHashTable = dm.selectHashtable();
+        Hashtable ht = new Hashtable();
+        
+        for(Hashtable list : listHashTable){
+        	String temp_id = (String) list.get("id");
+        	if(temp_id.equals(intent_id)){
+        		ht = list;
+        	}
+        }
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save);
         View add = findViewById(R.id.Button01add);
         add.setOnClickListener(this);
         View home = findViewById(R.id.Button01home);
-        home.setOnClickListener(this);        
+        home.setOnClickListener(this);   
+        
+        mIndicatorRatingBar = ((RatingBar)findViewById(R.id.ratingbar1));
+        mIndicatorRatingBar.setOnRatingBarChangeListener(this);
         
     }
 	
@@ -59,8 +74,11 @@ public class EditClothing extends Activity implements OnClickListener{
             break;
             case R.id.Button01add:
                 View editText1 = (EditText) findViewById(R.id.name);
+                View editText2 = (EditText) findViewById(R.id.description);
                 String myEditText1=((TextView) editText1).getText().toString();
-                dm.update(id, myEditText1);
+                String myEditText2=((TextView) editText2).getText().toString();
+                this.dm = new DataManipulator(this);
+                dm.update(id, myEditText1,myEditText2,newNumStars);
                 Intent added = new Intent(this, ViewClothing.class);
                 added.putExtra("id", id);
    				startActivityForResult(added, 1);
@@ -73,4 +91,21 @@ public class EditClothing extends Activity implements OnClickListener{
        home.putExtra("id", id);
        startActivityForResult(home, 1);
     }
+
+	@Override
+	public void onRatingChanged(RatingBar ratingBar, float rating,
+			boolean fromUser){
+		final int numStars = ratingBar.getNumStars();
+		if (mIndicatorRatingBar.getNumStars() != numStars) {
+        mIndicatorRatingBar.setNumStars(numStars);
+		}
+		if (mIndicatorRatingBar.getRating() != rating) {
+			mIndicatorRatingBar.setRating(rating);
+		}
+		final float ratingBarStepSize = ratingBar.getStepSize();
+    	if (mIndicatorRatingBar.getStepSize() != ratingBarStepSize) {
+    		mIndicatorRatingBar.setStepSize(ratingBarStepSize);
+    	}
+    	newNumStars = (int) rating;
+	}
 }

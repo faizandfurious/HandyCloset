@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
@@ -60,18 +61,22 @@ public class ViewClothing extends Activity {
         }
         String name = (String) ht.get("name");
         byte[] bytes = (byte[]) ht.get("picture");
-    	String ht_id = (String) ht.get("id");
-    	int id = Integer.parseInt(ht_id);
+    	String description = (String) ht.get("description");
+    	Integer rating = (Integer) ht.get("rating");
+    	
 
     	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     	Drawable drw = new BitmapDrawable(largeBitmap);
     	
+    	RatingBar mIndicatorRatingBar = (RatingBar) findViewById(R.id.ratingbar1);
+    	mIndicatorRatingBar.setRating(rating);
+    	mIndicatorRatingBar.setClickable(false);
     	ImageView image = (ImageView) findViewById(R.id.imageView1);
     	TextView nameText = (TextView) findViewById(R.id.textView1);
-    	TextView idText = (TextView) findViewById(R.id.textView2);
+    	TextView descriptionText = (TextView) findViewById(R.id.textView2);
     	image.setImageDrawable(drw);
-    	nameText.setText(name);
-    	idText.setText(intent_id);
+    	nameText.setText("Name: " + name);
+    	descriptionText.setText("Description: " + description);
     	
         
 	}

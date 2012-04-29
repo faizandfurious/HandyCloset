@@ -76,7 +76,7 @@ public class Camera extends Activity implements View.OnClickListener {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitMapData = stream.toByteArray();
-            dm.insert("", bitMapData);
+            dm.insert("", bitMapData, "", 0);
             List<Integer> ids = dm.getIds();
             int last = ids.get(ids.size() - 1);
             i = new Intent(this, SaveData.class);
@@ -86,7 +86,10 @@ public class Camera extends Activity implements View.OnClickListener {
 	}
 	
     public void onBackPressed() {
-
+    	Intent intent = new Intent(Intent.ACTION_MAIN);
+    	intent.addCategory(Intent.CATEGORY_HOME);
+    	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	startActivity(intent);
      }
 	
 
