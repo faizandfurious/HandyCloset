@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -26,6 +27,7 @@ public class SaveData extends Activity implements OnClickListener {
     static final int DIALOG_ID = 0;
     
     int id;
+    private Spinner spinner1;
 
 
     
@@ -41,8 +43,11 @@ public class SaveData extends Activity implements OnClickListener {
 		
 		Bundle extras = getIntent().getExtras();
 		id = extras.getInt("id");
+		
 
     }
+    
+
     public void onClick(View v){
         switch(v.getId()){
             case R.id.Button01home:
@@ -51,11 +56,12 @@ public class SaveData extends Activity implements OnClickListener {
             break;
             case R.id.Button01add:
                 View editText1 = (EditText) findViewById(R.id.name);
-                View editText2 = (EditText) findViewById(R.id.description);
+                spinner1 = (Spinner) findViewById(R.id.spinner1);
+                String myDescription = spinner1.getSelectedItem().toString();
+                
                 String myEditText1=((TextView) editText1).getText().toString();
-                String myEditText2=((TextView) editText2).getText().toString();
                 this.dh = new DataManipulator(this);
-                dh.update(id, myEditText1,myEditText2,0);
+                dh.update(id, myEditText1,myDescription,0);
                 Intent added = new Intent(this, ViewClothing.class);
                 added.putExtra("id", id);
    				startActivityForResult(added, 1);
@@ -63,7 +69,9 @@ public class SaveData extends Activity implements OnClickListener {
                 showDialog(DIALOG_ID);
             break;
         }
-    }  
+    }
+    
+    
     protected final Dialog onCreateDialog(final int id) {
         Dialog dialog = null;
         final Intent main = new Intent(SaveData.this, TabMenu.class);
