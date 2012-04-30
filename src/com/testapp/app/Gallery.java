@@ -60,7 +60,7 @@ public class Gallery extends Activity {
         g.setOnItemClickListener(new OnItemClickListener() {
            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         	   int location = v.getId();
-        	   Toast.makeText(Gallery.this, "" + position + ", " + location, Toast.LENGTH_SHORT).show();
+//        	   Toast.makeText(Gallery.this, "" + position + ", " + location, Toast.LENGTH_SHORT).show();
    				Intent launchView = new Intent(Gallery.this, ViewClothing.class);
    			
    				launchView.putExtra("id", location);

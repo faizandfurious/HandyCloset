@@ -68,15 +68,12 @@ public class ViewClothing extends Activity {
     	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     	Drawable drw = new BitmapDrawable(largeBitmap);
     	
-    	RatingBar mIndicatorRatingBar = (RatingBar) findViewById(R.id.ratingbar1);
-    	mIndicatorRatingBar.setRating(rating);
-    	mIndicatorRatingBar.setClickable(false);
     	ImageView image = (ImageView) findViewById(R.id.imageView1);
     	TextView nameText = (TextView) findViewById(R.id.textView1);
     	TextView descriptionText = (TextView) findViewById(R.id.textView2);
     	image.setImageDrawable(drw);
-    	nameText.setText("Name: " + name);
-    	descriptionText.setText("Description: " + description);
+    	nameText.setText(name);
+    	descriptionText.setText(description);
     	
         
 	}
@@ -95,8 +92,7 @@ public class ViewClothing extends Activity {
 			Intent editI = new Intent(ViewClothing.this, EditClothing.class);
 			editI.putExtra("id", location);
 			startActivityForResult(editI, 1);
-			
-			Toast.makeText(this, "Edit menu", Toast.LENGTH_SHORT).show();
+
 			return true;
 		case R.id.delete:
 			showDialog(DIALOG_ID);

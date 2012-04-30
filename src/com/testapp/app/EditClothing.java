@@ -19,13 +19,11 @@ import android.widget.RatingBar;
 import android.view.View.OnClickListener;
 
 
-public class EditClothing extends Activity implements OnClickListener, RatingBar.OnRatingBarChangeListener{
+public class EditClothing extends Activity implements OnClickListener{
 	
 	
 	int id;
 	DataManipulator dm;
-    RatingBar mIndicatorRatingBar;
-    int newNumStars = 0;
     List<Hashtable> listHashTable;
     Hashtable ht;
 	   
@@ -58,9 +56,7 @@ public class EditClothing extends Activity implements OnClickListener, RatingBar
         add.setOnClickListener(this);
         View home = findViewById(R.id.Button01home);
         home.setOnClickListener(this);   
-        
-        mIndicatorRatingBar = ((RatingBar)findViewById(R.id.ratingbar1));
-        mIndicatorRatingBar.setOnRatingBarChangeListener(this);
+
         
     }
 	
@@ -78,7 +74,7 @@ public class EditClothing extends Activity implements OnClickListener, RatingBar
                 String myEditText1=((TextView) editText1).getText().toString();
                 String myEditText2=((TextView) editText2).getText().toString();
                 this.dm = new DataManipulator(this);
-                dm.update(id, myEditText1,myEditText2,newNumStars);
+                dm.update(id, myEditText1,myEditText2,0);
                 Intent added = new Intent(this, ViewClothing.class);
                 added.putExtra("id", id);
    				startActivityForResult(added, 1);
@@ -92,20 +88,4 @@ public class EditClothing extends Activity implements OnClickListener, RatingBar
        startActivityForResult(home, 1);
     }
 
-	@Override
-	public void onRatingChanged(RatingBar ratingBar, float rating,
-			boolean fromUser){
-		final int numStars = ratingBar.getNumStars();
-		if (mIndicatorRatingBar.getNumStars() != numStars) {
-        mIndicatorRatingBar.setNumStars(numStars);
-		}
-		if (mIndicatorRatingBar.getRating() != rating) {
-			mIndicatorRatingBar.setRating(rating);
-		}
-		final float ratingBarStepSize = ratingBar.getStepSize();
-    	if (mIndicatorRatingBar.getStepSize() != ratingBarStepSize) {
-    		mIndicatorRatingBar.setStepSize(ratingBarStepSize);
-    	}
-    	newNumStars = (int) rating;
-	}
 }

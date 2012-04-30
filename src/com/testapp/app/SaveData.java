@@ -21,12 +21,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
-public class SaveData extends Activity implements OnClickListener, RatingBar.OnRatingBarChangeListener {  
+public class SaveData extends Activity implements OnClickListener {  
     private DataManipulator dh;     
     static final int DIALOG_ID = 0;
     
     int id;
-    RatingBar mIndicatorRatingBar;
 
 
     
@@ -56,7 +55,7 @@ public class SaveData extends Activity implements OnClickListener, RatingBar.OnR
                 String myEditText1=((TextView) editText1).getText().toString();
                 String myEditText2=((TextView) editText2).getText().toString();
                 this.dh = new DataManipulator(this);
-                dh.update(id, myEditText1,myEditText2,mIndicatorRatingBar.getNumStars());
+                dh.update(id, myEditText1,myEditText2,0);
                 Intent added = new Intent(this, ViewClothing.class);
                 added.putExtra("id", id);
    				startActivityForResult(added, 1);
@@ -84,19 +83,4 @@ public class SaveData extends Activity implements OnClickListener, RatingBar.OnR
         }
         return dialog;
     }
-	@Override
-	public void onRatingChanged(RatingBar ratingBar, float rating,
-			boolean fromUser){
-		final int numStars = ratingBar.getNumStars();
-		if (mIndicatorRatingBar.getNumStars() != numStars) {
-        mIndicatorRatingBar.setNumStars(numStars);
-		}
-		if (mIndicatorRatingBar.getRating() != rating) {
-			mIndicatorRatingBar.setRating(rating);
-		}
-		final float ratingBarStepSize = ratingBar.getStepSize();
-    	if (mIndicatorRatingBar.getStepSize() != ratingBarStepSize) {
-    		mIndicatorRatingBar.setStepSize(ratingBarStepSize);
-    	}
-	}
 }
