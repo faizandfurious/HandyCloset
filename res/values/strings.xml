@@ -6,4 +6,11 @@
     <string name="shirt">This is a shirt</string>
     <string name="name">Name of the Clothing</string>
     
+    <string name="description_prompt">Choose a type</string>
+ 
+    <string-array name="type_array">
+        <item>Top</item>
+        <item>Bottom</item>
+    </string-array>
+    
 </resources>

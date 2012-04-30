@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.RatingBar;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ public class EditClothing extends Activity implements OnClickListener{
 	DataManipulator dm;
     List<Hashtable> listHashTable;
     Hashtable ht;
+    private Spinner spinner1;
 	   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,14 +72,16 @@ public class EditClothing extends Activity implements OnClickListener{
             break;
             case R.id.Button01add:
                 View editText1 = (EditText) findViewById(R.id.name);
-                View editText2 = (EditText) findViewById(R.id.description);
+                spinner1 = (Spinner) findViewById(R.id.spinner1);
+                String myDescription = spinner1.getSelectedItem().toString();
+                
                 String myEditText1=((TextView) editText1).getText().toString();
-                String myEditText2=((TextView) editText2).getText().toString();
                 this.dm = new DataManipulator(this);
-                dm.update(id, myEditText1,myEditText2,0);
+                dm.update(id, myEditText1,myDescription,0);
                 Intent added = new Intent(this, ViewClothing.class);
                 added.putExtra("id", id);
    				startActivityForResult(added, 1);
+
         }
     }
     @Override

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:focusable="true" android:focusableInTouchMode="true"
-    android:padding="5dp" >
+    android:padding="5dp" 
+    android:layout_marginBottom="50dp">
 
 
         <EditText
