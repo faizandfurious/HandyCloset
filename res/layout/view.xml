@@ -15,9 +15,12 @@
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/buttondown" />
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -28,46 +31,21 @@
 
         <TextView
             android:id="@+id/textView1"
+
+            style="@style/CodeFont"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name"
+            android:layout_height="wrap_content"	
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView2"
+            style="@style/CodeFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Color"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rating"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="Edit" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="Delete" />
-    </RelativeLayout>
 
 </LinearLayout>
