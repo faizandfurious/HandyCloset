@@ -88,6 +88,7 @@ public class Gallery extends Activity {
         });
         
         
+        
         dm = new DataManipulator(this);
         listHashTable = dm.selectHashtable();
         

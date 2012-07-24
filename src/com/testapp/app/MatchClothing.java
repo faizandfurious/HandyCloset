@@ -53,18 +53,18 @@ public class MatchClothing extends Activity
 		//et = (TextView) findViewById(R.id.TextView01);
 		//et.setText("Coming soon!");
 		Gallery ga = (Gallery)findViewById(R.id.Gallery01);
-        ga.setAdapter(new ImageAdapter(this));
+        ga.setAdapter(new TopAdapter(this));
         
         Gallery gal = (Gallery)findViewById(R.id.Gallery02);
-        gal.setAdapter(new ImageAdapter(this));
+        gal.setAdapter(new TopAdapter(this));
 	}
 	
-    public class ImageAdapter extends BaseAdapter {
+    public class TopAdapter extends BaseAdapter {
 
     	private Context ctx;
     	int imageBackground;
     	
-    	public ImageAdapter(Context c) {
+    	public TopAdapter(Context c) {
 			ctx = c;
 			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
 			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);

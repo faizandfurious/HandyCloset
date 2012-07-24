@@ -1,10 +1,12 @@
 package com.testapp.app;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -43,6 +45,7 @@ public class DataManipulator
         this.insertStmt.bindDouble(4, rating);
         return this.insertStmt.executeInsert();
     }
+    
     
     public List<Hashtable> searchQuery(String search){
         List<Hashtable> list = new ArrayList<Hashtable>();
@@ -94,6 +97,58 @@ public class DataManipulator
         else{
         	return null;
         }
+    }
+    
+    public List<Hashtable> selectTops(){
+    	
+    	List<Hashtable> tops = new ArrayList<Hashtable>();
+    	String q = "SELECT * FROM " + TABLE_NAME + "WHERE " + KEY_DESCRIPTION + " = top;";
+    	
+    	Cursor cursor = db.rawQuery(q, null);
+    	
+        if (cursor.moveToFirst()) {
+            do {
+            	Hashtable values = new Hashtable();
+            	values.put("id", cursor.getString(0));
+            	values.put("name", cursor.getString(1));
+            	values.put("picture", cursor.getBlob(2));
+            	values.put("description", cursor.getString(3));
+            	values.put("rating", cursor.getInt(4));
+            	tops.add(values);
+            } while (cursor.moveToNext());
+         }
+         if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+         } 
+         cursor.close();
+    	
+    	return tops;
+    }
+    
+    public List<Hashtable> selectBottoms(){
+    	
+    	List<Hashtable> bottoms = new ArrayList<Hashtable>();
+    	String q = "SELECT * FROM " + TABLE_NAME + "WHERE " + KEY_DESCRIPTION + " = bottom;";
+    	
+    	Cursor cursor = db.rawQuery(q, null);
+    	
+        if (cursor.moveToFirst()) {
+            do {
+            	Hashtable values = new Hashtable();
+            	values.put("id", cursor.getString(0));
+            	values.put("name", cursor.getString(1));
+            	values.put("picture", cursor.getBlob(2));
+            	values.put("description", cursor.getString(3));
+            	values.put("rating", cursor.getInt(4));
+            	bottoms.add(values);
+            } while (cursor.moveToNext());
+         }
+         if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+         } 
+         cursor.close();
+    	
+    	return bottoms;
     }
     
     public List<Integer> getIds(){
