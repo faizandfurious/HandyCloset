@@ -51,17 +51,21 @@ public final class R {
         public static final int jeans=0x7f020022;
         public static final int khakis=0x7f020023;
         public static final int launcher_icon=0x7f020024;
-        public static final int lock=0x7f020025;
-        public static final int pants=0x7f020026;
-        public static final int shirt=0x7f020027;
-        public static final int shorts=0x7f020028;
-        public static final int splash_background=0x7f020029;
-        public static final int sundress=0x7f02002a;
-        public static final int sweatpants=0x7f02002b;
-        public static final int sweatshirt=0x7f02002c;
-        public static final int tshirt=0x7f02002d;
-        public static final int unlock=0x7f02002e;
-        public static final int wall1=0x7f02002f;
+        public static final int leftcaret_disabled=0x7f020025;
+        public static final int leftcaret_enabled=0x7f020026;
+        public static final int lock=0x7f020027;
+        public static final int pants=0x7f020028;
+        public static final int rightcaret_disabled=0x7f020029;
+        public static final int rightcaret_enabled=0x7f02002a;
+        public static final int shirt=0x7f02002b;
+        public static final int shorts=0x7f02002c;
+        public static final int splash_background=0x7f02002d;
+        public static final int sundress=0x7f02002e;
+        public static final int sweatpants=0x7f02002f;
+        public static final int sweatshirt=0x7f020030;
+        public static final int tshirt=0x7f020031;
+        public static final int unlock=0x7f020032;
+        public static final int wall1=0x7f020033;
     }
     public static final class id {
         public static final int Button01add=0x7f09001f;

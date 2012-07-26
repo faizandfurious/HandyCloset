@@ -20,11 +20,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
-            android:src="@drawable/arrow_left_disabled" />
+            android:src="@drawable/leftcaret_disabled" />
 
         <pinkgorilla.handycloset.ExtendedGallery
             android:id="@+id/Gallery01"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dip"
             android:layout_marginRight="40dip"
@@ -39,7 +39,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:src="@drawable/arrow_right_enabled" />
+            android:src="@drawable/rightcaret_enabled" />
 
         <Button
             android:id="@+id/lockbutton01"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
-            android:src="@drawable/arrow_left_disabled" />
+            android:src="@drawable/leftcaret_disabled" />
 
         <pinkgorilla.handycloset.ExtendedGallery
      		android:id="@+id/Gallery02" 
@@ -87,7 +87,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:src="@drawable/arrow_right_enabled" />
+            android:src="@drawable/rightcaret_enabled" />
 
         <Button
             android:id="@+id/lockbutton02"

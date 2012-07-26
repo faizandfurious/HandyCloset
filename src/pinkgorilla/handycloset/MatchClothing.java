@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
@@ -28,6 +29,14 @@ public class MatchClothing extends Activity
 	private TextView et;
 	private boolean topLocked = false;
 	private boolean bottomLocked = false;
+	private Button topLock;
+	private Button bottomLock;
+	private ImageView topLeftArrowImageView;
+	private ImageView topRightArrowImageView;
+	private int topSelectedImagePosition = 0;
+	private int bottomSelectedImagePosition = 0;
+	private ImageView bottomLeftArrowImageView;
+	private ImageView bottomRightArrowImageView;
 
 	
    List<Integer> topIds = new ArrayList<Integer>();
@@ -51,12 +60,17 @@ public class MatchClothing extends Activity
     		R.drawable.clothes10
     };
     //ImageView imageView;
-	
-	public void onCreate(Bundle savedInstanceState)
-	{
+	@Override
+	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.match);
 
+        setupUI();
+	}
+	
+	
+	private void setupUI(){
+		
 		final ExtendedGallery topGal = (ExtendedGallery) findViewById(R.id.Gallery01);
         topGal.setScrollingEnabled(true); // disable scrolling
         topGal.setAdapter(new ImageAdapter(this));
@@ -65,8 +79,10 @@ public class MatchClothing extends Activity
         bottomGal.setScrollingEnabled(true); // enable scrolling
         bottomGal.setAdapter(new ImageAdapter(this));
         
-        final Button topLock = (Button)findViewById(R.id.lockbutton01);
-        final Button bottomLock = (Button)findViewById(R.id.lockbutton02);
+        
+        //Set up lock/unlock abilities
+        topLock = (Button)findViewById(R.id.lockbutton01);
+        bottomLock = (Button)findViewById(R.id.lockbutton02);
         
         topLock.setOnClickListener(new View.OnClickListener() {
 			
@@ -101,6 +117,72 @@ public class MatchClothing extends Activity
 				}
 				bottomLocked = !bottomLocked;
 				
+			}
+		});
+        
+        //Create controls for top gallery
+        topLeftArrowImageView = (ImageView) findViewById(R.id.left_arrow_imageview01);
+		topRightArrowImageView = (ImageView) findViewById(R.id.right_arrow_imageview01);
+
+		topLeftArrowImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!topLocked && topSelectedImagePosition > 0) {
+					--topSelectedImagePosition;
+
+				}
+
+				topGal.setSelection(topSelectedImagePosition, false);
+			}
+		});
+
+		topRightArrowImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!topLocked && topSelectedImagePosition < pics.length - 1) {
+					++topSelectedImagePosition;
+
+				}
+
+				topGal.setSelection(topSelectedImagePosition, false);
+
+			}
+		});
+		
+		//Create controls for bottom gallery
+        bottomLeftArrowImageView = (ImageView) findViewById(R.id.left_arrow_imageview02);
+        bottomRightArrowImageView = (ImageView) findViewById(R.id.right_arrow_imageview02);
+
+        bottomLeftArrowImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!bottomLocked && bottomSelectedImagePosition > 0) {
+					--bottomSelectedImagePosition;
+
+				}
+
+				topGal.setSelection(bottomSelectedImagePosition, false);
+			}
+		});
+
+        bottomRightArrowImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!bottomLocked && bottomSelectedImagePosition < pics.length - 1) {
+					++bottomSelectedImagePosition;
+
+				}
+
+				bottomGal.setSelection(bottomSelectedImagePosition, false);
+
 			}
 		});
         
