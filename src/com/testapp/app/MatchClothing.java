@@ -55,11 +55,13 @@ public class MatchClothing extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.match);
 
-        ExtendedGallery mGallery = (ExtendedGallery) findViewById(R.id.Gallery01);
-        mGallery.setScrollingEnabled(false); // disable scrolling
+		final ExtendedGallery topGal = (ExtendedGallery) findViewById(R.id.Gallery01);
+        topGal.setScrollingEnabled(true); // disable scrolling
+        topGal.setAdapter(new ImageAdapter(this));
         
-        Gallery gal = (Gallery)findViewById(R.id.Gallery02);
-        gal.setAdapter(new ImageAdapter(this));
+        final ExtendedGallery bottomGal = (ExtendedGallery) findViewById(R.id.Gallery02);
+        bottomGal.setScrollingEnabled(true); // enable scrolling
+        bottomGal.setAdapter(new ImageAdapter(this));
         
         final Button topLock = (Button)findViewById(R.id.lockbutton01);
         final Button bottomLock = (Button)findViewById(R.id.lockbutton02);
@@ -70,9 +72,11 @@ public class MatchClothing extends Activity
 			public void onClick(View v) {
 				if(topLocked){
 					topLock.setBackgroundResource(R.drawable.unlock);
+					topGal.setScrollingEnabled(true); // enable scrolling
 				}
 				else{
 					topLock.setBackgroundResource(R.drawable.lock);
+					topGal.setScrollingEnabled(false); // disable scrolling
 					
 				}
 				topLocked = !topLocked;
@@ -86,9 +90,11 @@ public class MatchClothing extends Activity
 			public void onClick(View v) {
 				if(bottomLocked){
 					bottomLock.setBackgroundResource(R.drawable.unlock);
+					bottomGal.setScrollingEnabled(true); // enable scrolling
 				}
 				else{
 					bottomLock.setBackgroundResource(R.drawable.lock);
+					bottomGal.setScrollingEnabled(false); // disable scrolling
 					
 				}
 				bottomLocked = !bottomLocked;
