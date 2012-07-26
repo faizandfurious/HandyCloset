@@ -167,7 +167,7 @@ public class MatchClothing extends Activity
 
 				}
 
-				topGal.setSelection(bottomSelectedImagePosition, false);
+				bottomGal.setSelection(bottomSelectedImagePosition, false);
 			}
 		});
 
