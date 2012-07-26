@@ -3,15 +3,111 @@
     android:id="@+id/LinearLayout01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/closetyes">
+    android:paddingTop="20dp"
+    android:orientation="vertical">
 
-	<Gallery 
-		android:id="@+id/Gallery01" 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"></Gallery>
-	<Gallery 
-		android:id="@+id/Gallery02" 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"></Gallery>
+    <RelativeLayout
+        android:id="@+id/gallery_relative_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="150dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+        
+        <ImageView
+            android:id="@+id/left_arrow_imageview01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:src="@drawable/arrow_left_disabled" />
+
+        <Gallery
+            android:id="@+id/Gallery01"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_toLeftOf="@+id/right_arrow_imageview01"
+            android:layout_toRightOf="@+id/left_arrow_imageview01"
+            android:spacing="20dip" />
+
+        <ImageView
+            android:id="@+id/right_arrow_imageview01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dip"
+            android:src="@drawable/arrow_right_enabled" />
+        
+        <ImageView
+            android:id="@+id/lockbutton01"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/Gallery01"
+            android:background="#0000"
+            android:scaleType="center"
+            android:src="@drawable/unlock" />
+
+	
+	</RelativeLayout>
+	
+    <RelativeLayout
+        android:id="@+id/gallery_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:gravity="top"
+        android:orientation="horizontal" >
+        
+        <ImageView
+            android:id="@+id/left_arrow_imageview02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dip"
+            android:src="@drawable/arrow_left_disabled" />
+
+        <Gallery
+     		android:id="@+id/Gallery02" 
+            android:layout_width="0dip"
+            android:layout_height="150dip"
+            android:layout_marginLeft="40dip"
+            android:layout_marginRight="40dip"
+            android:layout_toLeftOf="@+id/right_arrow_imageview02"
+            android:layout_toRightOf="@+id/left_arrow_imageview02"
+            android:spacing="20dip" />
+
+        <ImageView
+            android:id="@+id/right_arrow_imageview02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dip"
+            android:src="@drawable/arrow_right_enabled" />
+
+        <ImageView
+            android:id="@+id/lockbutton02"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/Gallery02"
+            android:background="#0000"
+            android:scaleType="center"
+            android:src="@drawable/unlock" />
+	
+	</RelativeLayout>
+	
+    
+	    <Button
+        android:id="@+id/bMatch"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Match" />
 </LinearLayout>

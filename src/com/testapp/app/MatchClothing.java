@@ -1,14 +1,20 @@
 package com.testapp.app;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,21 +23,16 @@ public class MatchClothing extends Activity
 //	private DataManipulator dm;
 //	private GridView grid;
 	private TextView et;
-//
-//
-//	ArrayList<String> names = new ArrayList<String>();
-//	ArrayList<Integer> ids = new ArrayList<Integer>();
-//	ArrayList<Drawable> images = new ArrayList<Drawable>();
-//	
-//	List<Hashtable> dataHashTable = new ArrayList<Hashtable>();
-//	List<Hashtable> hashtable = null;
-//	ImageAdapter imageAdapter;
-//
-//	int textlength=0;
-//
-//	DataManipulator dm;
-//	List<Hashtable> listHashTable = new ArrayList<Hashtable>();
-//	List<Drawable> images = new ArrayList<Drawable>();
+
+	
+   List<Integer> topIds = new ArrayList<Integer>();
+   List<byte[]> topList = new ArrayList<byte[]>();
+   List<String> topNames = new ArrayList<String>();
+	
+   List<Hashtable> topListHashTable = new ArrayList<Hashtable>();
+   List<Drawable> topImages = new ArrayList<Drawable>();
+   
+   
 	Integer[] pics = {
     		R.drawable.clothes1,
     		R.drawable.clothes2,
@@ -53,18 +54,17 @@ public class MatchClothing extends Activity
 		//et = (TextView) findViewById(R.id.TextView01);
 		//et.setText("Coming soon!");
 		Gallery ga = (Gallery)findViewById(R.id.Gallery01);
-        ga.setAdapter(new TopAdapter(this));
+        ga.setAdapter(new ImageAdapter(this));
         
         Gallery gal = (Gallery)findViewById(R.id.Gallery02);
-        gal.setAdapter(new TopAdapter(this));
+        gal.setAdapter(new ImageAdapter(this));
 	}
-	
-    public class TopAdapter extends BaseAdapter {
+    public class ImageAdapter extends BaseAdapter {
 
     	private Context ctx;
     	int imageBackground;
     	
-    	public TopAdapter(Context c) {
+    	public ImageAdapter(Context c) {
 			ctx = c;
 			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
 			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
@@ -100,111 +100,67 @@ public class MatchClothing extends Activity
     	}
 
     }
-	
+    public class TopAdapter extends BaseAdapter {
 
-//		dm = new DataManipulator(this);
-//
-//		grid = (GridView) findViewById(R.id.myGrid);
-//		et = (EditText) findViewById(R.id.EditText01);
-//		
-//
-//		hashtable = dm.selectHashtable();
-//		
-//		for(Hashtable table : hashtable){
-//			byte[] bytes = (byte[]) table.get("picture");
-//	       	//String name = (String) row.get("name");
-//	       	String temp_id = (String) table.get("id");
-//	       	int id = Integer.parseInt(temp_id);
-//	       	int h = 60; // height in pixels
-//	       	int w = 60; // width in pixels    
-//	       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//	       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-//	       	Drawable drw = new BitmapDrawable(scaled);
-//	       	images.add(drw);
-//        	ids.add(id);
-//			names.add((String)table.get("name"));
-//		}
-//
-//		grid.setAdapter(new ImageAdapter(this));
-//
-//		et.addTextChangedListener(new TextWatcher() {
-//				public void afterTextChanged(Editable s)
-//				{
-//				}
-//				public void beforeTextChanged(CharSequence s,
-//					int start, int count, int after)
-//				{
-//				}
-//
-//				public void onTextChanged(CharSequence s,
-//					int start, int before, int count)
-//				{
-//					names.clear();
-//					images.clear();
-//					hashtable = dm.selectHashtable();
-//
-//					for(Hashtable table : hashtable){
-//						if (s.length() <= 0 && 
-//								((String)table.get("name")).indexOf((String)s) != 0) {
-//							byte[] bytes = (byte[]) table.get("picture");
-//					       	//String name = (String) row.get("name");
-//					       	String temp_id = (String) table.get("id");
-//					       	int id = Integer.parseInt(temp_id);
-//					       	int h = 60; // height in pixels
-//					       	int w = 60; // width in pixels    
-//					       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//					       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-//					       	Drawable drw = new BitmapDrawable(scaled);
-//					       	images.add(drw);
-//				        	ids.add(id);
-//							names.add((String)table.get("name"));
-//						}
-//					}
-//					
-//					imageAdapter.notifyDataSetChanged();
-//				}
-//			});
-//	}
-//
-//	public class ImageAdapter extends BaseAdapter {
-//        public ImageAdapter(Context c) {
-//                mContext = c;
-//        }
-//        public int getCount() {
-//                return images.size();
-//        }
-//        public Object getItem(int position) {
-//                return position;
-//        }
-//        public long getItemId(int position) {
-//                return position;
-//        }
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//           ImageView imageView;
-//           if(!images.isEmpty()){
-//                if (convertView == null) {
-//                   imageView = new ImageView(mContext);
-//                   imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-//                   imageView.setAdjustViewBounds(false);
-//                   imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                   imageView.setPadding(0, 0, 0, 0);
-//                   //Set the imageViews ID to the images ID from the database
-//                   int location = ids.get(position);
-//                   imageView.setId(location);
-//                } else {
-//                   imageView = (ImageView) convertView;
-//                }
-//
-//                imageView.setImageDrawable(images.get(position));
-//            }
-//           else{
-//        	   imageView = null;
-//           }
-//            return imageView;
-//        	
-//        }
-//        private Context mContext;
-//    }
+    	private Context ctx;
+    	int imageBackground;
+    	
+    	public TopAdapter(Context c) {
+			ctx = c;
+			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
+			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
+			ta.recycle();
+		}
+
+		@Override
+    	public int getCount() {
+    		
+    		return topImages.size();
+    	}
+
+    	@Override
+    	public Object getItem(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+    	public long getItemId(int arg0) {
+    		
+    		return arg0;
+    	}
+
+    	@Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView = null;
+            if(!topImages.isEmpty()){
+                 if (convertView == null) {
+                    imageView = new ImageView(ctx);
+                    imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+                    imageView.setAdjustViewBounds(false);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    imageView.setPadding(0, 0, 0, 0);
+
+                    //Set the imageViews ID to the images ID from the database
+
+                    int location = topIds.get(position);
+                    imageView.setId(location);
+                 } else {
+                    imageView = (ImageView) convertView;
+                 }
+
+                 imageView.setImageDrawable(topImages.get(position));
+             }
+            else{
+         	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+         	   imageView.setImageDrawable(d);
+            }
+             return imageView;
+         	
+         }
+
+    }
+
 	
     public void onBackPressed() {
     	Intent intent = new Intent(Intent.ACTION_MAIN);
