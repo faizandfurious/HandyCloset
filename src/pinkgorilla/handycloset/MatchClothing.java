@@ -59,19 +59,7 @@ public class MatchClothing extends Activity
    List<Hashtable> bottomListHashTable = new ArrayList<Hashtable>();
    List<Drawable> bottomImages = new ArrayList<Drawable>();
    
-	Integer[] topPics = {
-    		R.drawable.buttondown,
-    		R.drawable.jacket,
-    		R.drawable.sweatshirt,
-    		R.drawable.tshirt,
-    };
-	Integer[] bottomPics = {
-			R.drawable.jeans,
-			R.drawable.khakis,
-			R.drawable.pants,
-			R.drawable.shorts,
-			R.drawable.sweatpants,
-	};
+
 	
     //ImageView imageView;
 	@Override
@@ -194,7 +182,7 @@ public class MatchClothing extends Activity
 			@Override
 			public void onClick(View v) {
 
-				if (!topLocked && topSelectedImagePosition < topPics.length - 1) {
+				if (!topLocked && topSelectedImagePosition < topImages.size() - 1) {
 					++topSelectedImagePosition;
 
 				}
@@ -227,7 +215,7 @@ public class MatchClothing extends Activity
 			@Override
 			public void onClick(View v) {
 
-				if (!bottomLocked && bottomSelectedImagePosition < bottomPics.length - 1) {
+				if (!bottomLocked && bottomSelectedImagePosition < bottomImages.size() - 1) {
 					++bottomSelectedImagePosition;
 
 				}
@@ -342,9 +330,10 @@ public class MatchClothing extends Activity
 		}
 
 		@Override
+		//Return 1 if empty, to show default picture.
     	public int getCount() {
     		
-    		return topPics.length;
+    		return Math.max(1, topImages.size());
     	}
 
     	@Override
@@ -359,15 +348,6 @@ public class MatchClothing extends Activity
     		return arg0;
     	}
 
-//    	@Override
-//    	public View getView(int arg0, View arg1, ViewGroup arg2) {
-//    		ImageView iv = new ImageView(ctx);
-//    		iv.setImageResource(topPics[arg0]);
-//    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
-//    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
-//    		iv.setBackgroundResource(imageBackground);
-//    		return iv;
-//    	}
     	
 //    	Use this to connect to database
       public View getView(int position, View convertView, ViewGroup parent) {
@@ -412,9 +392,10 @@ public class MatchClothing extends Activity
 		}
 
 		@Override
+		//Return 1 if empty, to show default picture.
     	public int getCount() {
     		
-    		return bottomPics.length;
+    		return Math.max(1, bottomImages.size());
     	}
 
     	@Override
@@ -457,34 +438,6 @@ public class MatchClothing extends Activity
     	   	
     	   }
     	
-    	//Use this to connect to database
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            ImageView imageView = null;
-//            if(!topImages.isEmpty()){
-//                 if (convertView == null) {
-//                    imageView = new ImageView(ctx);
-//                    imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-//                    imageView.setAdjustViewBounds(false);
-//                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                    imageView.setPadding(0, 0, 0, 0);
-//
-//                    //Set the imageViews ID to the images ID from the database
-//
-//                    int location = topIds.get(position);
-//                    imageView.setId(location);
-//                 } else {
-//                    imageView = (ImageView) convertView;
-//                 }
-//
-//                 imageView.setImageDrawable(topImages.get(position));
-//             }
-//            else{
-//         	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
-//         	   imageView.setImageDrawable(d);
-//            }
-//             return imageView;
-//         	
-//         }
 
     }
     
