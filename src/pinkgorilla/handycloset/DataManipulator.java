@@ -102,7 +102,7 @@ public class DataManipulator
     public List<Hashtable> selectTops(){
     	
     	List<Hashtable> tops = new ArrayList<Hashtable>();
-    	String q = "SELECT * FROM " + TABLE_NAME + "WHERE " + KEY_DESCRIPTION + " = top;";
+    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_DESCRIPTION + " = 'top';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	
@@ -128,7 +128,7 @@ public class DataManipulator
     public List<Hashtable> selectBottoms(){
     	
     	List<Hashtable> bottoms = new ArrayList<Hashtable>();
-    	String q = "SELECT * FROM " + TABLE_NAME + "WHERE " + KEY_DESCRIPTION + " = bottom;";
+    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_DESCRIPTION + " = 'bottom';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	
@@ -155,6 +155,34 @@ public class DataManipulator
     	
     	List<Integer> ids = new ArrayList<Integer>();
     	String q = "SELECT id FROM " + TABLE_NAME +";";
+    	Cursor cursor = db.rawQuery(q, null);
+    	if(cursor.moveToFirst()){
+    		do{
+    			ids.add(cursor.getInt(0));
+    		} while (cursor.moveToNext());
+    	}
+    	
+    	return ids;
+    }
+    
+    public List<Integer> getTopIds(){
+    	
+    	List<Integer> ids = new ArrayList<Integer>();
+    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_DESCRIPTION + " = 'top';";
+    	Cursor cursor = db.rawQuery(q, null);
+    	if(cursor.moveToFirst()){
+    		do{
+    			ids.add(cursor.getInt(0));
+    		} while (cursor.moveToNext());
+    	}
+    	
+    	return ids;
+    }
+    
+    public List<Integer> getBottomIds(){
+    	
+    	List<Integer> ids = new ArrayList<Integer>();
+    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_DESCRIPTION + " = 'bottom';";
     	Cursor cursor = db.rawQuery(q, null);
     	if(cursor.moveToFirst()){
     		do{

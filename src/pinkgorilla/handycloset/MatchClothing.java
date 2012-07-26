@@ -10,6 +10,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +27,7 @@ import android.widget.TextView;
 
 public class MatchClothing extends Activity
 {
-//	private DataManipulator dm;
+	private DataManipulator dm;
 //	private GridView grid;
 	private TextView et;
 	private boolean topLocked = false;
@@ -37,15 +40,24 @@ public class MatchClothing extends Activity
 	private int bottomSelectedImagePosition = 0;
 	private ImageView bottomLeftArrowImageView;
 	private ImageView bottomRightArrowImageView;
+	private TopAdapter topImageAdapter;
+	private BottomAdapter bottomImageAdapter;
+	private ExtendedGallery topGal;
+	private ExtendedGallery bottomGal;
 
 	
    List<Integer> topIds = new ArrayList<Integer>();
    List<byte[]> topList = new ArrayList<byte[]>();
    List<String> topNames = new ArrayList<String>();
+   
+   List<Integer> bottomIds = new ArrayList<Integer>();
+   List<byte[]> bottomList = new ArrayList<byte[]>();
+   List<String> bottomNames = new ArrayList<String>();
 	
    List<Hashtable> topListHashTable = new ArrayList<Hashtable>();
    List<Drawable> topImages = new ArrayList<Drawable>();
-   
+   List<Hashtable> bottomListHashTable = new ArrayList<Hashtable>();
+   List<Drawable> bottomImages = new ArrayList<Drawable>();
    
 	Integer[] topPics = {
     		R.drawable.buttondown,
@@ -68,18 +80,55 @@ public class MatchClothing extends Activity
 		setContentView(R.layout.match);
 
         setupUI();
+        getData();
 	}
 	
+	private void getData(){
+		 dm = new DataManipulator(this);
+		 topListHashTable = dm.selectTops();
+	        
+	        for(Hashtable row : topListHashTable){
+	        	byte[] bytes = (byte[]) row.get("picture");
+	        	//String name = (String) row.get("name");
+	        	String temp_id = (String) row.get("id");
+	        	int id = Integer.parseInt(temp_id);
+	        	int h = 60; // height in pixels
+	        	int w = 60; // width in pixels    
+	        	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+	        	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+	        	Drawable drw = new BitmapDrawable(scaled);
+	        	topImages.add(drw);
+	        	topIds.add(id);
+	        }
+	        
+	        bottomListHashTable = dm.selectBottoms();
+
+	        for(Hashtable row : bottomListHashTable){
+	        	byte[] bytes = (byte[]) row.get("picture");
+	        	//String name = (String) row.get("name");
+	        	String temp_id = (String) row.get("id");
+	        	int id = Integer.parseInt(temp_id);
+	        	int h = 60; // height in pixels
+	        	int w = 60; // width in pixels    
+	        	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+	        	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
+	        	Drawable drw = new BitmapDrawable(scaled);
+	        	bottomImages.add(drw);
+	        	bottomIds.add(id);
+	        }
+	}
 	
 	private void setupUI(){
 		
-		final ExtendedGallery topGal = (ExtendedGallery) findViewById(R.id.Gallery01);
+		topImageAdapter = new TopAdapter(this);
+		bottomImageAdapter = new BottomAdapter(this);
+		topGal = (ExtendedGallery) findViewById(R.id.Gallery01);
         topGal.setScrollingEnabled(true); // disable scrolling
-        topGal.setAdapter(new TopAdapter(this));
+        topGal.setAdapter(topImageAdapter);
         
-        final ExtendedGallery bottomGal = (ExtendedGallery) findViewById(R.id.Gallery02);
+        bottomGal = (ExtendedGallery) findViewById(R.id.Gallery02);
         bottomGal.setScrollingEnabled(true); // enable scrolling
-        bottomGal.setAdapter(new BottomAdapter(this));
+        bottomGal.setAdapter(bottomImageAdapter);
         
         
         //Set up lock/unlock abilities
@@ -189,6 +238,97 @@ public class MatchClothing extends Activity
 		});
         
 	}
+	
+	
+	
+	
+	
+	   public void onResume() {
+		   super.onResume();
+		   List<Integer> newTopIds = dm.getTopIds();
+		   List<Integer> newBottomIds = dm.getBottomIds();
+
+		   if(!topImages.isEmpty())
+		   {
+			   for(int i = 0; i < topIds.size(); i++)
+			   {
+				   if(!newTopIds.contains(topIds.get(i)))
+				   {
+					   topImages.remove(i);
+				   }
+			   }
+			   for(int i = 0; i < newTopIds.size(); i++)
+			   {
+				   if(!topIds.contains(newTopIds.get(i)))
+				   {
+					   Drawable temp = dm.getPicture(newTopIds.get(i));
+					   if(temp != null){
+						   topImages.add(temp);
+						   topIds.add(newTopIds.get(i));  
+					   }
+				   }
+			   }
+				topImageAdapter.notifyDataSetChanged();
+				topGal.setAdapter(topImageAdapter);
+			   
+		   }
+		   
+		   if(!bottomImages.isEmpty())
+		   {
+			   for(int i = 0; i < bottomIds.size(); i++)
+			   {
+				   if(!newBottomIds.contains(bottomIds.get(i)))
+				   {
+					   bottomImages.remove(i);
+				   }
+			   }
+			   for(int i = 0; i < newBottomIds.size(); i++)
+			   {
+				   if(!bottomIds.contains(newBottomIds.get(i)))
+				   {
+					   Drawable temp = dm.getPicture(newBottomIds.get(i));
+					   if(temp != null){
+						   bottomImages.add(temp);
+						   bottomIds.add(newBottomIds.get(i));  
+					   }
+				   }
+			   }
+				bottomImageAdapter.notifyDataSetChanged();
+				bottomGal.setAdapter(bottomImageAdapter);
+			   
+		   }
+	   }
+	   
+	   @Override
+	   protected void onPause() {
+	   super.onPause();
+
+	   unbindDrawables(findViewById(R.id.Gallery01));
+	   unbindDrawables(findViewById(R.id.Gallery02));
+	   System.gc();
+	   }
+
+
+	   private void unbindDrawables(View view) {
+	       if (view.getBackground() != null) {
+	       view.getBackground().setCallback(null);
+	       }
+	       if (view instanceof ViewGroup) {
+	           for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+	           unbindDrawables(((ViewGroup) view).getChildAt(i));
+	           }
+	       try {
+	           ((ViewGroup) view).removeAllViews();
+	    	   }
+	    	   catch (UnsupportedOperationException mayHappen) {
+
+	    	   // AdapterViews, ListViews and potentially other ViewGroups don't support the removeAllViews operation
+
+	    	   }
+	       }
+	   }
+	
+	
     public class TopAdapter extends BaseAdapter {
 
     	private Context ctx;
@@ -219,44 +359,43 @@ public class MatchClothing extends Activity
     		return arg0;
     	}
 
-    	@Override
-    	public View getView(int arg0, View arg1, ViewGroup arg2) {
-    		ImageView iv = new ImageView(ctx);
-    		iv.setImageResource(topPics[arg0]);
-    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
-    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
-    		iv.setBackgroundResource(imageBackground);
-    		return iv;
-    	}
+//    	@Override
+//    	public View getView(int arg0, View arg1, ViewGroup arg2) {
+//    		ImageView iv = new ImageView(ctx);
+//    		iv.setImageResource(topPics[arg0]);
+//    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
+//    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
+//    		iv.setBackgroundResource(imageBackground);
+//    		return iv;
+//    	}
     	
-    	//Use this to connect to database
-//      public View getView(int position, View convertView, ViewGroup parent) {
-//      ImageView imageView = null;
-//      if(!topImages.isEmpty()){
-//           if (convertView == null) {
-//              imageView = new ImageView(ctx);
-//              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-//              imageView.setAdjustViewBounds(false);
-//              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//              imageView.setPadding(0, 0, 0, 0);
-//
-//              //Set the imageViews ID to the images ID from the database
-//
-//              int location = topIds.get(position);
-//              imageView.setId(location);
-//           } else {
-//              imageView = (ImageView) convertView;
-//           }
-//
-//           imageView.setImageDrawable(topImages.get(position));
-//       }
-//      else{
-//   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
-//   	   imageView.setImageDrawable(d);
-//      }
-//       return imageView;
-//   	
-//   }
+//    	Use this to connect to database
+      public View getView(int position, View convertView, ViewGroup parent) {
+      ImageView imageView = new ImageView(ctx);
+      if(!topImages.isEmpty()){
+           if (convertView == null) {
+              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+              imageView.setAdjustViewBounds(false);
+              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+              imageView.setPadding(0, 0, 0, 0);
+
+              //Set the imageViews ID to the images ID from the database
+
+              int location = topIds.get(position);
+              imageView.setId(location);
+           } else {
+              imageView = (ImageView) convertView;
+           }
+
+           imageView.setImageDrawable(topImages.get(position));
+       }
+      else{
+   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+   	   imageView.setImageDrawable(d);
+      }
+       return imageView;
+   	
+   }
 
     }
     
@@ -291,14 +430,32 @@ public class MatchClothing extends Activity
     	}
 
     	@Override
-    	public View getView(int arg0, View arg1, ViewGroup arg2) {
-    		ImageView iv = new ImageView(ctx);
-    		iv.setImageResource(bottomPics[arg0]);
-    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
-    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
-    		iv.setBackgroundResource(imageBackground);
-    		return iv;
-    	}
+        public View getView(int position, View convertView, ViewGroup parent) {
+    	      ImageView imageView = new ImageView(ctx);
+    	      if(!bottomImages.isEmpty()){
+    	           if (convertView == null) {
+    	              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+    	              imageView.setAdjustViewBounds(false);
+    	              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    	              imageView.setPadding(0, 0, 0, 0);
+
+    	              //Set the imageViews ID to the images ID from the database
+
+    	              int location = bottomIds.get(position);
+    	              imageView.setId(location);
+    	           } else {
+    	              imageView = (ImageView) convertView;
+    	           }
+
+    	           imageView.setImageDrawable(bottomImages.get(position));
+    	       }
+    	      else{
+    	   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+    	   	   imageView.setImageDrawable(d);
+    	      }
+    	       return imageView;
+    	   	
+    	   }
     	
     	//Use this to connect to database
 //        public View getView(int position, View convertView, ViewGroup parent) {
