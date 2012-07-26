@@ -22,7 +22,7 @@
             android:layout_marginLeft="15dip"
             android:src="@drawable/arrow_left_disabled" />
 
-        <com.testapp.app.ExtendedGallery
+        <pinkgorilla.handycloset.ExtendedGallery
             android:id="@+id/Gallery01"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -50,12 +50,6 @@
             android:layout_marginRight="14dp"
             android:background="@drawable/unlock" />
 
-        <com.testapp.app.ExtendedGallery
-            android:id="@+id/extendedGallery1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/right_arrow_imageview01"
-            android:layout_centerHorizontal="true" />
 	
 	</RelativeLayout>
 	
@@ -76,7 +70,7 @@
             android:layout_marginLeft="15dip"
             android:src="@drawable/arrow_left_disabled" />
 
-        <com.testapp.app.ExtendedGallery
+        <pinkgorilla.handycloset.ExtendedGallery
      		android:id="@+id/Gallery02" 
             android:layout_width="0dip"
             android:layout_height="150dip"
