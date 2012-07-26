@@ -47,18 +47,20 @@ public class MatchClothing extends Activity
    List<Drawable> topImages = new ArrayList<Drawable>();
    
    
-	Integer[] pics = {
-    		R.drawable.clothes1,
-    		R.drawable.clothes2,
-    		R.drawable.clothes3,
-    		R.drawable.clothes4,
-    		R.drawable.clothes5,
-    		R.drawable.clothes6,
-    		R.drawable.clothes7,
-    		R.drawable.clothes8,
-    		R.drawable.clothes9,
-    		R.drawable.clothes10
+	Integer[] topPics = {
+    		R.drawable.buttondown,
+    		R.drawable.jacket,
+    		R.drawable.sweatshirt,
+    		R.drawable.tshirt,
     };
+	Integer[] bottomPics = {
+			R.drawable.jeans,
+			R.drawable.khakis,
+			R.drawable.pants,
+			R.drawable.shorts,
+			R.drawable.sweatpants,
+	};
+	
     //ImageView imageView;
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -73,11 +75,11 @@ public class MatchClothing extends Activity
 		
 		final ExtendedGallery topGal = (ExtendedGallery) findViewById(R.id.Gallery01);
         topGal.setScrollingEnabled(true); // disable scrolling
-        topGal.setAdapter(new ImageAdapter(this));
+        topGal.setAdapter(new TopAdapter(this));
         
         final ExtendedGallery bottomGal = (ExtendedGallery) findViewById(R.id.Gallery02);
         bottomGal.setScrollingEnabled(true); // enable scrolling
-        bottomGal.setAdapter(new ImageAdapter(this));
+        bottomGal.setAdapter(new BottomAdapter(this));
         
         
         //Set up lock/unlock abilities
@@ -143,7 +145,7 @@ public class MatchClothing extends Activity
 			@Override
 			public void onClick(View v) {
 
-				if (!topLocked && topSelectedImagePosition < pics.length - 1) {
+				if (!topLocked && topSelectedImagePosition < topPics.length - 1) {
 					++topSelectedImagePosition;
 
 				}
@@ -176,7 +178,7 @@ public class MatchClothing extends Activity
 			@Override
 			public void onClick(View v) {
 
-				if (!bottomLocked && bottomSelectedImagePosition < pics.length - 1) {
+				if (!bottomLocked && bottomSelectedImagePosition < bottomPics.length - 1) {
 					++bottomSelectedImagePosition;
 
 				}
@@ -187,12 +189,12 @@ public class MatchClothing extends Activity
 		});
         
 	}
-    public class ImageAdapter extends BaseAdapter {
+    public class TopAdapter extends BaseAdapter {
 
     	private Context ctx;
     	int imageBackground;
     	
-    	public ImageAdapter(Context c) {
+    	public TopAdapter(Context c) {
 			ctx = c;
 			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
 			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
@@ -202,7 +204,7 @@ public class MatchClothing extends Activity
 		@Override
     	public int getCount() {
     		
-    		return pics.length;
+    		return topPics.length;
     	}
 
     	@Override
@@ -220,20 +222,50 @@ public class MatchClothing extends Activity
     	@Override
     	public View getView(int arg0, View arg1, ViewGroup arg2) {
     		ImageView iv = new ImageView(ctx);
-    		iv.setImageResource(pics[arg0]);
+    		iv.setImageResource(topPics[arg0]);
     		iv.setScaleType(ImageView.ScaleType.FIT_XY);
     		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
     		iv.setBackgroundResource(imageBackground);
     		return iv;
     	}
+    	
+    	//Use this to connect to database
+//      public View getView(int position, View convertView, ViewGroup parent) {
+//      ImageView imageView = null;
+//      if(!topImages.isEmpty()){
+//           if (convertView == null) {
+//              imageView = new ImageView(ctx);
+//              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+//              imageView.setAdjustViewBounds(false);
+//              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//              imageView.setPadding(0, 0, 0, 0);
+//
+//              //Set the imageViews ID to the images ID from the database
+//
+//              int location = topIds.get(position);
+//              imageView.setId(location);
+//           } else {
+//              imageView = (ImageView) convertView;
+//           }
+//
+//           imageView.setImageDrawable(topImages.get(position));
+//       }
+//      else{
+//   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+//   	   imageView.setImageDrawable(d);
+//      }
+//       return imageView;
+//   	
+//   }
 
     }
-    public class TopAdapter extends BaseAdapter {
+    
+    public class BottomAdapter extends BaseAdapter {
 
     	private Context ctx;
     	int imageBackground;
     	
-    	public TopAdapter(Context c) {
+    	public BottomAdapter(Context c) {
 			ctx = c;
 			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
 			imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
@@ -243,7 +275,7 @@ public class MatchClothing extends Activity
 		@Override
     	public int getCount() {
     		
-    		return topImages.size();
+    		return bottomPics.length;
     	}
 
     	@Override
@@ -259,35 +291,47 @@ public class MatchClothing extends Activity
     	}
 
     	@Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView = null;
-            if(!topImages.isEmpty()){
-                 if (convertView == null) {
-                    imageView = new ImageView(ctx);
-                    imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-                    imageView.setAdjustViewBounds(false);
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    imageView.setPadding(0, 0, 0, 0);
-
-                    //Set the imageViews ID to the images ID from the database
-
-                    int location = topIds.get(position);
-                    imageView.setId(location);
-                 } else {
-                    imageView = (ImageView) convertView;
-                 }
-
-                 imageView.setImageDrawable(topImages.get(position));
-             }
-            else{
-         	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
-         	   imageView.setImageDrawable(d);
-            }
-             return imageView;
-         	
-         }
+    	public View getView(int arg0, View arg1, ViewGroup arg2) {
+    		ImageView iv = new ImageView(ctx);
+    		iv.setImageResource(bottomPics[arg0]);
+    		iv.setScaleType(ImageView.ScaleType.FIT_XY);
+    		iv.setLayoutParams(new Gallery.LayoutParams(300,300));
+    		iv.setBackgroundResource(imageBackground);
+    		return iv;
+    	}
+    	
+    	//Use this to connect to database
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ImageView imageView = null;
+//            if(!topImages.isEmpty()){
+//                 if (convertView == null) {
+//                    imageView = new ImageView(ctx);
+//                    imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+//                    imageView.setAdjustViewBounds(false);
+//                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                    imageView.setPadding(0, 0, 0, 0);
+//
+//                    //Set the imageViews ID to the images ID from the database
+//
+//                    int location = topIds.get(position);
+//                    imageView.setId(location);
+//                 } else {
+//                    imageView = (ImageView) convertView;
+//                 }
+//
+//                 imageView.setImageDrawable(topImages.get(position));
+//             }
+//            else{
+//         	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+//         	   imageView.setImageDrawable(d);
+//            }
+//             return imageView;
+//         	
+//         }
 
     }
+    
+    
 
 	
     public void onBackPressed() {
