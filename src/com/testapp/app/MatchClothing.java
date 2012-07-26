@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ public class MatchClothing extends Activity
 //	private DataManipulator dm;
 //	private GridView grid;
 	private TextView et;
+	private boolean topLocked = false;
+	private boolean bottomLocked = false;
 
 	
    List<Integer> topIds = new ArrayList<Integer>();
@@ -51,13 +54,48 @@ public class MatchClothing extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.match);
-		//et = (TextView) findViewById(R.id.TextView01);
-		//et.setText("Coming soon!");
-		Gallery ga = (Gallery)findViewById(R.id.Gallery01);
-        ga.setAdapter(new ImageAdapter(this));
+
+        ExtendedGallery mGallery = (ExtendedGallery) findViewById(R.id.Gallery01);
+        mGallery.setScrollingEnabled(false); // disable scrolling
         
         Gallery gal = (Gallery)findViewById(R.id.Gallery02);
         gal.setAdapter(new ImageAdapter(this));
+        
+        final Button topLock = (Button)findViewById(R.id.lockbutton01);
+        final Button bottomLock = (Button)findViewById(R.id.lockbutton02);
+        
+        topLock.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(topLocked){
+					topLock.setBackgroundResource(R.drawable.unlock);
+				}
+				else{
+					topLock.setBackgroundResource(R.drawable.lock);
+					
+				}
+				topLocked = !topLocked;
+				
+			}
+		});
+        
+        bottomLock.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(bottomLocked){
+					bottomLock.setBackgroundResource(R.drawable.unlock);
+				}
+				else{
+					bottomLock.setBackgroundResource(R.drawable.lock);
+					
+				}
+				bottomLocked = !bottomLocked;
+				
+			}
+		});
+        
 	}
     public class ImageAdapter extends BaseAdapter {
 

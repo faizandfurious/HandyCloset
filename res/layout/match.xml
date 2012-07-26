@@ -40,17 +40,15 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
             android:src="@drawable/arrow_right_enabled" />
-        
-        <ImageView
+
+        <Button
             android:id="@+id/lockbutton01"
-            android:layout_width="50dp"
+            android:layout_width="21dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/Gallery01"
-            android:background="#0000"
-            android:scaleType="center"
-            android:src="@drawable/unlock" />
-
+            android:layout_marginRight="14dp"
+            android:background="@drawable/unlock" />
 	
 	</RelativeLayout>
 	
@@ -90,24 +88,16 @@
             android:layout_marginRight="15dip"
             android:src="@drawable/arrow_right_enabled" />
 
-        <ImageView
+        <Button
             android:id="@+id/lockbutton02"
-            android:layout_width="50dp"
+            android:layout_width="21dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/Gallery02"
-            android:background="#0000"
-            android:scaleType="center"
-            android:src="@drawable/unlock" />
+            android:layout_marginRight="14dp"
+            android:background="@drawable/unlock" />
 	
 	</RelativeLayout>
 	
     
-	    <Button
-        android:id="@+id/bMatch"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Match" />
 </LinearLayout>
