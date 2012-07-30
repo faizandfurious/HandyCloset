@@ -12,12 +12,15 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
@@ -80,8 +83,8 @@ public class MatchClothing extends Activity
 	        	//String name = (String) row.get("name");
 	        	String temp_id = (String) row.get("id");
 	        	int id = Integer.parseInt(temp_id);
-	        	int h = 60; // height in pixels
-	        	int w = 60; // width in pixels    
+	        	int h = 360; // height in pixels
+	        	int w = 360; // width in pixels    
 	        	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 	        	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
 	        	Drawable drw = new BitmapDrawable(scaled);
@@ -96,8 +99,8 @@ public class MatchClothing extends Activity
 	        	//String name = (String) row.get("name");
 	        	String temp_id = (String) row.get("id");
 	        	int id = Integer.parseInt(temp_id);
-	        	int h = 60; // height in pixels
-	        	int w = 60; // width in pixels    
+	        	int h = 360; // height in pixels
+	        	int w = 360; // width in pixels    
 	        	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 	        	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
 	        	Drawable drw = new BitmapDrawable(scaled);
@@ -162,6 +165,7 @@ public class MatchClothing extends Activity
         //Create controls for top gallery
         topLeftArrowImageView = (ImageView) findViewById(R.id.left_arrow_imageview01);
 		topRightArrowImageView = (ImageView) findViewById(R.id.right_arrow_imageview01);
+		
 
 		topLeftArrowImageView.setOnClickListener(new OnClickListener() {
 
@@ -354,11 +358,6 @@ public class MatchClothing extends Activity
       ImageView imageView = new ImageView(ctx);
       if(!topImages.isEmpty()){
            if (convertView == null) {
-              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-              imageView.setAdjustViewBounds(false);
-              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-              imageView.setPadding(0, 0, 0, 0);
-
               //Set the imageViews ID to the images ID from the database
 
               int location = topIds.get(position);
@@ -415,13 +414,8 @@ public class MatchClothing extends Activity
     	      ImageView imageView = new ImageView(ctx);
     	      if(!bottomImages.isEmpty()){
     	           if (convertView == null) {
-    	              imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-    	              imageView.setAdjustViewBounds(false);
-    	              imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-    	              imageView.setPadding(0, 0, 0, 0);
 
     	              //Set the imageViews ID to the images ID from the database
-
     	              int location = bottomIds.get(position);
     	              imageView.setId(location);
     	           } else {

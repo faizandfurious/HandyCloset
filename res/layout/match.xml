@@ -10,7 +10,6 @@
         android:id="@+id/gallery_relative_layout"
         android:layout_width="fill_parent"
         android:layout_height="150dip"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
         android:orientation="horizontal" >
         
@@ -20,14 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
-            android:src="@drawable/leftcaret_disabled" />
+            android:src="@drawable/leftcaret_disabled"
+			android:padding="20dip"/>
 
         <pinkgorilla.handycloset.ExtendedGallery
             android:id="@+id/Gallery01"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dip"
-            android:layout_marginRight="40dip"
             android:layout_toLeftOf="@+id/right_arrow_imageview01"
             android:layout_toRightOf="@+id/left_arrow_imageview01"
             android:spacing="20dip" />
@@ -39,7 +37,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:src="@drawable/rightcaret_enabled" />
+            android:src="@drawable/rightcaret_enabled"
+			android:padding="20dip" />
 
         <Button
             android:id="@+id/lockbutton01"
@@ -47,17 +46,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/Gallery01"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="17dp"
             android:background="@drawable/unlock" />
-
 	
 	</RelativeLayout>
 	
     <RelativeLayout
-        android:id="@+id/gallery_relative_layout"
+        android:id="@+id/gallery_relative_layout2"
         android:layout_width="match_parent"
         android:layout_height="150dip"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
         android:gravity="top"
         android:orientation="horizontal" >
@@ -68,14 +65,13 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dip"
-            android:src="@drawable/leftcaret_disabled" />
+            android:src="@drawable/leftcaret_disabled"
+			android:padding="20dip" />
 
         <pinkgorilla.handycloset.ExtendedGallery
-     		android:id="@+id/Gallery02" 
+            android:id="@+id/Gallery02"
             android:layout_width="0dip"
             android:layout_height="150dip"
-            android:layout_marginLeft="40dip"
-            android:layout_marginRight="40dip"
             android:layout_toLeftOf="@+id/right_arrow_imageview02"
             android:layout_toRightOf="@+id/left_arrow_imageview02"
             android:spacing="20dip" />
@@ -87,7 +83,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:src="@drawable/rightcaret_enabled" />
+            android:src="@drawable/rightcaret_enabled"
+			android:padding="20dip" />
 
         <Button
             android:id="@+id/lockbutton02"
@@ -95,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/Gallery02"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="17dp"
             android:background="@drawable/unlock" />
 	
 	</RelativeLayout>
