@@ -369,7 +369,7 @@ public class MatchClothing extends Activity
            imageView.setImageDrawable(topImages.get(position));
        }
       else{
-   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+   	   Drawable d = ctx.getResources().getDrawable(R.drawable.no_tops);
    	   imageView.setImageDrawable(d);
       }
        return imageView;
@@ -425,7 +425,7 @@ public class MatchClothing extends Activity
     	           imageView.setImageDrawable(bottomImages.get(position));
     	       }
     	      else{
-    	   	   Drawable d = ctx.getResources().getDrawable(R.drawable.add_how);
+    	   	   Drawable d = ctx.getResources().getDrawable(R.drawable.no_bottoms);
     	   	   imageView.setImageDrawable(d);
     	      }
     	       return imageView;
