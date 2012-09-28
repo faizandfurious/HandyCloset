@@ -26,7 +26,7 @@ public class Splash extends Activity {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} finally {
-					Intent openStartingPoint = new Intent("com.testapp.app.TABMENU");
+					Intent openStartingPoint = new Intent("pinkgorilla.handycloset.TABMENU");
 					startActivity(openStartingPoint);
 				}
 			}
