@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+//This class provides a view to allow the user to read and edit data about a specific article of clothing.
 public class ViewClothing extends Activity {
 	
 	int location;

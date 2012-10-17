@@ -14,8 +14,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+/**
+ * This class structures and stores data for the HandyCloset application. It contains methods that translate java queries into
+ * SQL queries, which in turn return java objects
+ * @author Faiz
+ *
+ */
 public class DataManipulator
 {
+	
     private static final  String DATABASE_NAME = "mydatabase.db";
     private static final int DATABASE_VERSION = 1;
     static final String TABLE_NAME = "newtable";
@@ -35,7 +42,8 @@ public class DataManipulator
         DataManipulator.db = openHelper.getWritableDatabase();
         this.insertStmt = DataManipulator.db.compileStatement(INSERT);
     }
-
+    
+    //Performs an insertion into the database, given all the attributes of the Article variable.
     public long insert(String name, byte[] picture, String description, int rating) {
         this.insertStmt.bindString(1, name);
         this.insertStmt.bindBlob(2, picture);
@@ -44,7 +52,8 @@ public class DataManipulator
         return this.insertStmt.executeInsert();
     }
     
-    
+    //Returns a List containing Hashtable objects that each hold information about a specific article object.
+    //TODO Return Article objects instead of a Hashtable
     public List<Hashtable> searchQuery(String search){
         List<Hashtable> list = new ArrayList<Hashtable>();
     	String q = "SELECT * FROM " + TABLE_NAME + " WHERE name LIKE '%" + search + "%';";

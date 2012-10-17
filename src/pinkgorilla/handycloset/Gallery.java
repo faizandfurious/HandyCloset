@@ -35,11 +35,21 @@ import android.widget.Toast;
 import android.content.Intent;
 import android.util.Log;
 
+/**
+ * This class is the implementation of the Gallery view. It defaults with a gallery view of every
+ * article of clothing belonging to the user within this application.
+ * 
+ * The gallery allows search functionality, and the ability to select an individual article
+ * to view more information. 
+ * 
+ * @author Faiz
+ *
+ */
 public class Gallery extends Activity {
 	
+	//Used to display information regarding a clicked article. Testing purposes.
 	TextView textView;
 
-	EditText et;
 	ImageAdapter imageAdapter;
 	GridView g;
 	   
@@ -64,7 +74,6 @@ public class Gallery extends Activity {
         setContentView(R.layout.gallery);
 
         g = (GridView) findViewById(R.id.myGrid);
-		et = (EditText) findViewById(R.id.editText1);
         imageAdapter = new ImageAdapter(this);
         g.setAdapter(imageAdapter);
         g.setOnItemClickListener(new OnItemClickListener() {
@@ -108,63 +117,6 @@ public class Gallery extends Activity {
         	ids.add(id);
         	//names.add(name);
         }
-        
-        et.setOnKeyListener(new OnKeyListener() {
-        	   public boolean onKey(View v, int keyCode, KeyEvent event) {
-        	       // If the event is a key-down event on the "enter" button
-        	       if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-        	           (keyCode == KeyEvent.KEYCODE_ENTER)) {
-        	         // Perform action on key press
-
-        	         return true;
-        	       }
-        	       return false;
-        	   }
-        	});
-		et.addTextChangedListener(new TextWatcher() {
-			public void afterTextChanged(Editable s)
-			{
-				listHashTable = dm.searchQuery(s.toString());
-				if(listHashTable.size() > 0){
-					names.clear();
-					images.clear();
-					ids.clear();
-					
-					for(Hashtable table : listHashTable){
-							byte[] bytes = (byte[]) table.get("picture");
-					       	String name = (String) table.get("name");
-					       	String temp_id = (String) table.get("id");
-					       	int id = Integer.parseInt(temp_id);
-					       	int h = 60; // height in pixels
-					       	int w = 60; // width in pixels    
-					       	Bitmap largeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-					       	Bitmap scaled = Bitmap.createScaledBitmap(largeBitmap, h, w, true);
-					       	Drawable drw = new BitmapDrawable(scaled);
-					       	images.add(drw);
-				        	ids.add(id);
-							names.add((String)table.get("name"));
-						}
-					}
-				else{
-					names.clear();
-					images.clear();
-					ids.clear();
-				}
-
-				imageAdapter.notifyDataSetChanged();
-				g.setAdapter(imageAdapter);
-			}
-			public void beforeTextChanged(CharSequence s,
-				int start, int count, int after)
-			{
-			}
-
-			public void onTextChanged(CharSequence s,
-				int start, int before, int count)
-			{
-
-			}
-		});
    }
    
    

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+//This class is utilized to handle taking in camera data (photo), 
 public class Camera extends Activity implements View.OnClickListener {
 
 	ImageView iv;
