@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * This class provides a menu to let the user either save or edit the data entered for the article.
+ * @author Faiz
+ *
+ */
 public class AddTypeList extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	@Override
@@ -23,7 +28,6 @@ public class AddTypeList extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch(v.getId()){
 
 		case R.id.button1:

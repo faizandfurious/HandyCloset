@@ -24,18 +24,18 @@ public class DataManipulator
 {
 	
     private static final  String DATABASE_NAME = "mydatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     static final String TABLE_NAME = "newtable";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_PICTURE = "picture";
-    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_TYPE = "type";
     public static final String KEY_RATING = "rating";
     private static Context context;
     static SQLiteDatabase db;
     private SQLiteStatement insertStmt;
         
-    private static final String INSERT = "insert into " + TABLE_NAME + " (name,picture,description,rating) values (?,?,?,?)";
+    private static final String INSERT = "insert into " + TABLE_NAME + " (name,picture,type,rating) values (?,?,?,?)";
     public DataManipulator(Context context) {
         DataManipulator.context = context;
         OpenHelper openHelper = new OpenHelper(DataManipulator.context);
@@ -44,15 +44,21 @@ public class DataManipulator
     }
     
     //Performs an insertion into the database, given all the attributes of the Article variable.
-    public long insert(String name, byte[] picture, String description, int rating) {
+    public long insert(String name, byte[] picture, String type, int rating) {
         this.insertStmt.bindString(1, name);
         this.insertStmt.bindBlob(2, picture);
-        this.insertStmt.bindString(3, description);
+        this.insertStmt.bindString(3, type);
         this.insertStmt.bindDouble(4, rating);
         return this.insertStmt.executeInsert();
     }
     
-    //Returns a List containing Hashtable objects that each hold information about a specific article object.
+    /**
+     * This method returns a List containing Hashtable objects that each hold information about a specific article object. It takes in a 
+     * string that is used to find objects. Currently matches the string with the name of each object.
+     * @param search A string that contains information about the object to search with.
+     * 
+     * @return
+     */
     //TODO Return Article objects instead of a Hashtable
     public List<Hashtable> searchQuery(String search){
         List<Hashtable> list = new ArrayList<Hashtable>();
@@ -65,7 +71,7 @@ public class DataManipulator
             	values.put("id", cursor.getString(0));
             	values.put("name", cursor.getString(1));
             	values.put("picture", cursor.getBlob(2));
-            	values.put("description", cursor.getString(3));
+            	values.put("type", cursor.getString(3));
             	values.put("rating", cursor.getInt(4));
             	list.add(values);
             } while (cursor.moveToNext());
@@ -78,6 +84,7 @@ public class DataManipulator
          return list;
     }
     
+    //Returns the picture of the 
     public Drawable getPicture(int id){
     	byte[] bytes = null;
     	
@@ -109,7 +116,7 @@ public class DataManipulator
     public List<Hashtable> selectTops(){
     	
     	List<Hashtable> tops = new ArrayList<Hashtable>();
-    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_DESCRIPTION + " = 'Top';";
+    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_TYPE + " = 'Top';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	
@@ -119,7 +126,7 @@ public class DataManipulator
             	values.put("id", cursor.getString(0));
             	values.put("name", cursor.getString(1));
             	values.put("picture", cursor.getBlob(2));
-            	values.put("description", cursor.getString(3));
+            	values.put("type", cursor.getString(3));
             	values.put("rating", cursor.getInt(4));
             	tops.add(values);
             } while (cursor.moveToNext());
@@ -135,7 +142,7 @@ public class DataManipulator
     public List<Hashtable> selectBottoms(){
     	
     	List<Hashtable> bottoms = new ArrayList<Hashtable>();
-    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_DESCRIPTION + " = 'Bottom';";
+    	String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_TYPE + " = 'Bottom';";
     	
     	Cursor cursor = db.rawQuery(q, null);
     	
@@ -145,7 +152,7 @@ public class DataManipulator
             	values.put("id", cursor.getString(0));
             	values.put("name", cursor.getString(1));
             	values.put("picture", cursor.getBlob(2));
-            	values.put("description", cursor.getString(3));
+            	values.put("type", cursor.getString(3));
             	values.put("rating", cursor.getInt(4));
             	bottoms.add(values);
             } while (cursor.moveToNext());
@@ -175,7 +182,7 @@ public class DataManipulator
     public List<Integer> getTopIds(){
     	
     	List<Integer> ids = new ArrayList<Integer>();
-    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_DESCRIPTION + " = 'Top';";
+    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_TYPE + " = 'Top';";
     	Cursor cursor = db.rawQuery(q, null);
     	if(cursor.moveToFirst()){
     		do{
@@ -189,7 +196,7 @@ public class DataManipulator
     public List<Integer> getBottomIds(){
     	
     	List<Integer> ids = new ArrayList<Integer>();
-    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_DESCRIPTION + " = 'Bottom';";
+    	String q = "SELECT id FROM " + TABLE_NAME +" WHERE " + KEY_TYPE + " = 'Bottom';";
     	Cursor cursor = db.rawQuery(q, null);
     	if(cursor.moveToFirst()){
     		do{
@@ -226,14 +233,14 @@ public class DataManipulator
     public List<Hashtable> selectHashtable()
     {
         List<Hashtable> list = new ArrayList<Hashtable>();
-        Cursor cursor = db.query(TABLE_NAME, new String[] { "id","name","picture", "description", "rating" }, null, null, null, null, "name asc"); 
+        Cursor cursor = db.query(TABLE_NAME, new String[] { "id","name","picture", "type", "rating" }, null, null, null, null, "name asc"); 
         if (cursor.moveToFirst()) {
            do {
            	Hashtable values = new Hashtable();
            	values.put("id", cursor.getString(0));
            	values.put("name", cursor.getString(1));
            	values.put("picture", cursor.getBlob(2));
-           	values.put("description", cursor.getString(3));
+           	values.put("type", cursor.getString(3));
            	values.put("rating", cursor.getInt(4));
            	list.add(values);
            } while (cursor.moveToNext());
@@ -247,11 +254,11 @@ public class DataManipulator
     }
     
     //---updates an article of clothing---
-    public boolean update(long rowId, String name, String description, int rating) 
+    public boolean update(long rowId, String name, String type, int rating) 
     {
         ContentValues args = new ContentValues();
         args.put(KEY_NAME, name);
-        args.put(KEY_DESCRIPTION, description);
+        args.put(KEY_TYPE, type);
         args.put(KEY_RATING, rating);
         return db.update(TABLE_NAME, args, 
                          KEY_ID + "=" + rowId, null) > 0;
@@ -268,7 +275,7 @@ public class DataManipulator
         }
         @Override
         public void onCreate(SQLiteDatabase db) {
-             db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, name TEXT, picture BLOB, description TEXT, rating INTEGER)");
+             db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, name TEXT, picture BLOB, type TEXT, rating INTEGER)");
         }
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 

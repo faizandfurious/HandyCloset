@@ -15,7 +15,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
+/**
+ * This class models a user-friendly activity to assist the user with editing an article of clothing within the application.
+ * The user can change the name and type of the article.
+ * @author Faiz
+ *
+ */
 public class EditClothing extends Activity implements OnClickListener{
 	
 	

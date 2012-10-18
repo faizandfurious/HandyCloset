@@ -13,7 +13,7 @@
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_marginLeft="50dp"
 		android:layout_marginTop="50dp"></Button>
-	<Button android:layout_below="@id/button1" android:text="Check Data"
+	<Button android:layout_below="@id/button1" android:text="Edit Data"
 		android:id="@+id/button2" android:layout_gravity="center"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_marginLeft="50dp"></Button>

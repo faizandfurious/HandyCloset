@@ -65,7 +65,7 @@ public class ViewClothing extends Activity {
         }
         String name = (String) ht.get("name");
         byte[] bytes = (byte[]) ht.get("picture");
-    	String description = (String) ht.get("description");
+    	String type = (String) ht.get("type");
     	Integer rating = (Integer) ht.get("rating");
     	
 
@@ -74,10 +74,10 @@ public class ViewClothing extends Activity {
     	
     	ImageView image = (ImageView) findViewById(R.id.imageView1);
     	TextView nameText = (TextView) findViewById(R.id.textView1);
-    	TextView descriptionText = (TextView) findViewById(R.id.textView2);
+    	TextView typeText = (TextView) findViewById(R.id.textView2);
     	image.setImageDrawable(drw);
     	nameText.setText(name);
-    	descriptionText.setText(description);
+    	typeText.setText(type);
     	
 	}
 

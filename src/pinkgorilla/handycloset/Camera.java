@@ -16,7 +16,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-//This class is utilized to handle taking in camera data (photo), 
+/**
+ * This class is what is displayed when the camera tab is clicked by the user. It allows routing to the devices camera,
+ * saving a picture taken by the user most recently, and the ability to return to the gallery.
+ * 
+ * @author Faiz
+ *
+ */
 public class Camera extends Activity implements View.OnClickListener {
 
 	ImageView iv;
